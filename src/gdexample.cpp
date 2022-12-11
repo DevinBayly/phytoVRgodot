@@ -1,33 +1,3 @@
-/*
-#include "gdexample.h"
-
-using namespace godot;
-
-void GDExample::_register_methods() {
-    register_method("_process", &GDExample::_process);
-}
-
-GDExample::GDExample() {
-}
-
-GDExample::~GDExample() {
-    // add your cleanup here
-}
-
-void GDExample::_init() {
-    // initialize any variables here
-    time_passed = 0.0;
-}
-
-void GDExample::_process(float delta) {
-    time_passed += delta;
-
-    Vector2 new_position = Vector2(10.0 + (10.0 * sin(time_passed * 2.0)), 10.0 + (10.0 * cos(time_passed * 1.5)));
-
-    set_position(new_position);
-}
-*/
-
 #include "gdexample.h"
 
 using namespace godot;
@@ -65,22 +35,44 @@ void GDExample::_ready() {
 	// Might leak if called repeatedly (not sure how that's handled),
 	// but it gets a triangle on the screen.
 	PoolVector3Array vertices;
-	vertices.push_back(Vector3(0, 10, 0));
-	vertices.push_back(Vector3(10, 0, 0));
-	vertices.push_back(Vector3(0, 0, 0));
 
 	auto mySimpleMesh = ArrayMesh::_new();
 	godot::Array arrays; // kind of a struct-of-arrays approach to vertex attributes (or array of arrays with enumerated keys)
-	arrays.resize(ArrayMesh::ARRAY_MAX);
-	arrays[ArrayMesh::ARRAY_VERTEX] = vertices; // required
 
 	// Vertex colors don't show correctly, probably because there's no material/skin yet.
 	PoolColorArray colors;  // optional...
-	colors.append(Color(1,0,0));
-	colors.append(Color(0,1,0));
-	colors.append(Color(0,0,1));
+				//
+// read file, and populate the verts and colors	
+// see if using the gd FILe type is faster than some c++ method 
+	auto f = File::_new();
+	auto e = f->open("./plant.ply",File::READ);
+	//Godot::print(e);
+	Godot::print(f->is_open());
+	std::vector<String> header;
+	for (int i = 0;i< 11;i++ ) {
+		String line = f->get_line();
+		header.push_back(line);
+	}
+	while (! f->eof_reached()) {
+
+		// get the xyz and rgb
+		double x = f->get_double();
+		double z = f->get_double();
+		double y = f->get_double();
+		vertices.append(Vector3(x,y,z));
+		float r = float(f->get_8())/256.0;
+		float g = float(f->get_8())/256.0;
+		float b = float(f->get_8())/256.0;
+		colors.append(Color(r,g,b));
+	}
+
+
+
+
+	arrays.resize(ArrayMesh::ARRAY_MAX);
+	arrays[ArrayMesh::ARRAY_VERTEX] = vertices; // required
 	arrays[ArrayMesh::ARRAY_COLOR] = colors;
-	mySimpleMesh->add_surface_from_arrays(Mesh::PRIMITIVE_TRIANGLES, arrays);
+	mySimpleMesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
 
 	// pMeshInstance = new MeshInstance; // NO! BAD! Will crash the game!
 	auto mySimpleMeshInstance = MeshInstance::_new(); // This is how we do things here.
