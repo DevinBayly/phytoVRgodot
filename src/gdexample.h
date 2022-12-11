@@ -2,6 +2,9 @@
 #define GDEXAMPLE_H
 
 #include <Godot.hpp>
+#include <File.hpp>
+#include <vector>
+#include <String.hpp>
 #include <Spatial.hpp>
 #include <ArrayMesh.hpp>
 #include <MeshInstance.hpp>
