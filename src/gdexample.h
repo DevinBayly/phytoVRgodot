@@ -4,7 +4,13 @@
 #include <Godot.hpp>
 #include <File.hpp>
 #include <vector>
+#include <chrono>
+#include <iostream>
+#include <ResourceLoader.hpp>
+#include <Material.hpp>
+#include <fstream>
 #include <String.hpp>
+#include <OS.hpp>
 #include <Spatial.hpp>
 #include <ArrayMesh.hpp>
 #include <MeshInstance.hpp>
@@ -19,6 +25,7 @@ private:
     float amplitude;
     float time_passed;
     float time_emit;
+    String file_pth;
 
 public:
     static void _register_methods();
