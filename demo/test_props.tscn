@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://bin/new_nativescript.gdns" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="test_props" type="Node2D"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+amplitude = 200.0
+path = "./testing"
