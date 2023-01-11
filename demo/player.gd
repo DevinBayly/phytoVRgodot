@@ -1,5 +1,6 @@
 extends KinematicBody
-
+signal collided(collider)
+signal exited(collider)
 const GRAVITY = -24.8
 var vel = Vector3()
 export var MAX_SPEED = 1
@@ -36,7 +37,7 @@ func process_input(delta):
 	var input_movement_vector = Vector2()
 
 	if Input.is_action_pressed("movement_forward"):
-		print("forward!")
+
 		input_movement_vector.y += 1
 	if Input.is_action_pressed("movement_backward"):
 		input_movement_vector.y -= 1
@@ -100,3 +101,13 @@ func _input(event):
 
 	if event is InputEventMouseButton:
 		click = event.pressed
+
+
+func _on_RayCast_collided(collider):
+	emit_signal("collided",collider)
+	pass # Replace with function body.
+
+
+func _on_RayCast_exited(collider):
+	emit_signal("exited",collider)
+	pass # Replace with function body.

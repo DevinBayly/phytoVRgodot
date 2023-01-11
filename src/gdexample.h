@@ -25,8 +25,10 @@ namespace godot
     private:
         float speed;
         float amplitude;
+        int point_skip;
         float time_passed;
         float time_emit;
+        bool already_rendered;
         String file_pth;
 
     public:
@@ -40,6 +42,8 @@ namespace godot
         void _process(float delta);
         void set_speed(float p_speed);
         float get_speed();
+        void set_point_skip(int skip);
+        int get_point_skip();
         void make_cloud();
         void set_file_path(String pth);
 

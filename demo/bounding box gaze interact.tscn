@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://first_person.tscn" type="PackedScene" id=1]
+[ext_resource path="res://bounding box gaze interact.gd" type="Script" id=2]
+[ext_resource path="res://Area.tscn" type="PackedScene" id=3]
+
+[node name="bounding box gaze interact" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="head" parent="." instance=ExtResource( 1 )]
+MAX_SPEED = 10
+
+[node name="Area" parent="." instance=ExtResource( 3 )]
+
+[node name="Area" parent="Area" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.88729, 1.19209e-07, -0.343838 )
+
+[connection signal="collided" from="head" to="." method="_on_head_collided"]
+[connection signal="exited" from="head" to="." method="_on_head_exited"]
