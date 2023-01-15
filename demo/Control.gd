@@ -8,6 +8,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#makes it possible for button to get the control not by name
+	add_to_group("control")
 	pass # Replace with function body.
 
 

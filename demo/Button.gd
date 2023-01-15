@@ -10,7 +10,7 @@ var starting_pos
 var adjusted_pos
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	data_window= $"../Control"
+	data_window= get_tree().get_nodes_in_group("control")[0]
 	print(data_window.rect_position)
 	print(data_window.rect_size)
 	starting_pos = get_transform().get_origin()
