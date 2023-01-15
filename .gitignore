@@ -1,0 +1,10 @@
+*png
+*json
+*import
+*.so
+*.sw*
+*.dblite*
+godot-headers*
+*ply
+*md5
+*gdnlib
