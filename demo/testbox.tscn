@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://wireframebox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://first_person.tscn" type="PackedScene" id=2]
+
+[node name="testbox" type="Spatial"]
+
+[node name="head" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.999945, 0, -0.0104892, 0, 1, 0, 0.0104892, 0, -0.999945, -0.0442805, 0.334541, -1.62971 )
+
+[node name="wireframebox" parent="." instance=ExtResource( 1 )]
