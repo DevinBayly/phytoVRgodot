@@ -112,7 +112,7 @@ void GDExample::make_cloud()
 		// cout << int(p->b) << endl;
 		// points.push_back(p);
 		//  these are just numbers taken from one of the files, it seems like it helps godot accurately render things if we can move the points back to closer to zero
-		vertices.append(Vector3(p->x  - 409001,p->y- 0.957346,p->z- 3660087.5));
+		vertices.append(Vector3(p->x  -4.08990844e+05 ,p->y- 1.01224618,p->z- 3.66008650e+06));
 		//vertices.append(Vector3(p->x, p->y, p->z));
 		// vertices.append(Vector3(p->x  ,p->y,p->z));
 		colors.append(Color(float(p->r) / 256.0, float(p->g) / 256.0, float(p->b) / 256.0));

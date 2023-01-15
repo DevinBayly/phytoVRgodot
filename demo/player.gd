@@ -5,13 +5,17 @@ const GRAVITY = -24.8
 var vel = Vector3()
 export var MAX_SPEED = 1
 const JUMP_SPEED = 18
+const WACCEL = 3
+const WMAX_Speed = 1
 export var ACCEL = 3
+export var sprintAccel = 10
+
 
 var dir = Vector3()
 
 const DEACCEL= 16
 const MAX_SLOPE_ANGLE = 40
-
+var sprint = false
 var camera
 var rotation_helper
 
@@ -45,6 +49,12 @@ func process_input(delta):
 		input_movement_vector.x -= 1
 	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x += 1
+	if Input.is_action_pressed("sprint"):
+		MAX_SPEED = sprintAccel
+		ACCEL = sprintAccel
+	if Input.is_action_just_released("sprint"):
+		MAX_SPEED = WMAX_Speed
+		ACCEL = WACCEL
 
 	input_movement_vector = input_movement_vector.normalized()
 
@@ -101,6 +111,7 @@ func _input(event):
 
 	if event is InputEventMouseButton:
 		click = event.pressed
+	
 
 
 func _on_RayCast_collided(collider):
