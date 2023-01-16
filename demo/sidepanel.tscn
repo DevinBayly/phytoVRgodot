@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://TCP_side_panel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Button.gd" type="Script" id=3]
+
+[node name="sidepanel" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1914.0
+margin_top = 413.0
+margin_right = 1990.0
+margin_bottom = 433.0
+rect_rotation = 90.5012
+toggle_mode = true
+text = "show data"
+script = ExtResource( 3 )
+
+[node name="TCP_side_panel" parent="." groups=["control"] instance=ExtResource( 1 )]
+visible = false
+margin_left = 1522.0
+margin_top = 3.0
+margin_right = 1914.0
+margin_bottom = 1080.0
+
+[connection signal="toggled" from="Button" to="Button" method="_on_Button_toggled"]
+[connection signal="toggled" from="Button" to="TCP_side_panel" method="_on_Button_toggled"]

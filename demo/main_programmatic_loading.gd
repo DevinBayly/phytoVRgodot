@@ -10,7 +10,7 @@ onready var point_class = preload("res://bin/new_nativescript.gdns")
 func _ready():
 	var dir = Directory.new()
 	var path = "./plants"
-	var lim = 40
+	var lim = 4
 	if dir.open(path) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
