@@ -75,20 +75,23 @@ func load_add_plant(pth):
 	
 
 	var child = pt.get_child(0)
+	
 
-	#print("points translation",pt.translation)
+	print("points translation",pt.translation)
 
-	#print("inside player")
+	print("inside player")
 	var pt_bb = child.get_aabb()
-	#print(pt_bb)
+	print(pt_bb)
 	var pt_transform = pt_bb.get_center()
-	#print("position to move area to is",pt_transform)
-#	var area = AreaDetector.instance()
-#	area.translate(pt_transform)
-#	area.set_plant(pt)
+	print("position to move area to is",pt_transform)
+	$"cam_shift".move_cam(pt_transform-Vector3(0,0,3))
+	var area = AreaDetector.instance()
+	area.translate(pt_transform)
+	area.set_plant(pt)
+	add_child(area)
 #	call_deferred("add_child",area)
 	
-	
+	add_child(pt)
 #	call_deferred("add_child",pt)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

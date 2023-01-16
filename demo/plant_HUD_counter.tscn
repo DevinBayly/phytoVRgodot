@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://plant_counter.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+margin_right = 382.0
+margin_bottom = 119.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_right = 252.0
+margin_bottom = 61.0
+text = "Number of plants
+"
+script = ExtResource( 1 )

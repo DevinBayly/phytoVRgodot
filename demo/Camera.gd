@@ -23,6 +23,10 @@ func _ready():
 #	look_at(bb.position,Vector3(0,1,0))
 	pass # Replace with function body.
 
+func move_cam(trans_location):
+	print("moved camera to",trans_location)
+	translate(trans_location)
+#	look_at(bb.position,Vector3(0,1,0))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
