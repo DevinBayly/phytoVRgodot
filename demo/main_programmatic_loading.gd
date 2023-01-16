@@ -10,15 +10,18 @@ onready var point_class = preload("res://bin/new_nativescript.gdns")
 func _ready():
 	var dir = Directory.new()
 	var path = "./plants"
+	var lim = 40
 	if dir.open(path) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
-		while file_name != "":
+		while file_name != "" and lim >0:
 			if dir.current_is_dir():
 				print("Found directory: " + file_name)
 			else:
-				print("Found file: " + file_name)
-				load_add_plant(path+"/"+file_name)
+				if ".ply" in file_name:
+					print("Found file: " + file_name)
+					lim -=1
+					load_add_plant(path+"/"+file_name)
 			file_name = dir.get_next()
 			
 	else:

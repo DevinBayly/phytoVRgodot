@@ -1,0 +1,9 @@
+*.ply
+*.png
+*.import
+*.json
+*.dblite
+*.so
+*.os
+godot-headers
+*.sw*
