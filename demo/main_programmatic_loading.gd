@@ -13,9 +13,13 @@ signal plantcount(number)
 func _ready():
 	plant_count =0
 #	thread = Thread.new
-	load_from_json("./plants_load_order.json")
+	#load_from_json("./plants_load_order.json")
+	single_plant()
 #	thread.start(self,"load_from_json","./plants_load_order.json")
-	
+
+func single_plant():
+	load_add_plant("/home/yara/Downloads/phyto_vr/lettuce/west/Grenadine_11/2020-03-02__01-50-23-120_cropped.ply")
+
 func load_from_json(jpth):
 	var reader = File.new()
 	reader.open(jpth,File.READ)
@@ -79,13 +83,14 @@ func load_add_plant(pth):
 	#print(pt_bb)
 	var pt_transform = pt_bb.get_center()
 	#print("position to move area to is",pt_transform)
-	var area = AreaDetector.instance()
-	area.translate(pt_transform)
-	area.set_plant(pt)
-	call_deferred("add_child",area)
+#	var area = AreaDetector.instance()
+#	area.translate(pt_transform)
+#	area.set_plant(pt)
+#	call_deferred("add_child",area)
 	
 	
-	call_deferred("add_child",pt)
+#	call_deferred("add_child",pt)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
