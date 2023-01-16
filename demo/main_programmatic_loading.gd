@@ -5,12 +5,16 @@ extends Spatial
 # var a = 2
 # var b = "text"
 var thread
+var plant_count
 onready var AreaDetector = preload("res://Area.tscn")
 onready var point_class = preload("res://bin/new_nativescript.gdns")
+signal plantcount(number)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	thread = Thread.new()
-	thread.start(self,"load_from_json","./plants_load_order.json")
+	plant_count =0
+#	thread = Thread.new
+	load_from_json("./plants_load_order.json")
+#	thread.start(self,"load_from_json","./plants_load_order.json")
 	
 func load_from_json(jpth):
 	var reader = File.new()
@@ -20,8 +24,10 @@ func load_from_json(jpth):
 	var json_res = JSON.parse(contents)
 
 	for e in json_res.result:
-		print(e.path)
+		#print(e.path)
 		load_add_plant(e.path)
+		plant_count +=1
+		emit_signal("plantcount",plant_count)
 		
 func load_files():
 	var dir = Directory.new()
@@ -52,7 +58,7 @@ func load_files():
 	pass # Replace with function body.
 
 func load_add_plant(pth):
-	print("loading",pth)
+	#print("loading",pth)
 	var pt = point_class.new()
 	
 	pt.file_pth =pth
@@ -66,13 +72,13 @@ func load_add_plant(pth):
 
 	var child = pt.get_child(0)
 
-	print("points translation",pt.translation)
+	#print("points translation",pt.translation)
 
-	print("inside player")
+	#print("inside player")
 	var pt_bb = child.get_aabb()
-	print(pt_bb)
+	#print(pt_bb)
 	var pt_transform = pt_bb.get_center()
-	print("position to move area to is",pt_transform)
+	#print("position to move area to is",pt_transform)
 	var area = AreaDetector.instance()
 	area.translate(pt_transform)
 	area.set_plant(pt)
