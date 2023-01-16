@@ -53,7 +53,7 @@ void GDExample::make_cloud()
 {
 	already_rendered = true;
 	auto mat = ResourceLoader::get_singleton()->load("res://mat.tres");
-	Godot::print("_ready");
+	Godot::print("_ready printing point skip");
 	Godot::print(String::num_scientific(point_skip));
 	// Simple test code adapted from GDscript docs to native C++
 	// Might leak if called repeatedly (not sure how that's handled),
@@ -90,6 +90,7 @@ void GDExample::make_cloud()
 	int correct_size = 27;
 	int buf_size = fend - fbeg;
 	int size = (buf_size) / correct_size;
+	cout << "printing buffer size and number of points" << endl;
 	cout << buf_size << endl;
 	cout << size << endl;
 	// convert the entire thing into a vector of structs that we can iterate over
@@ -98,7 +99,7 @@ void GDExample::make_cloud()
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	vector<char> buf(fend - fbeg);
 	f.read(buf.data(), fend - fbeg);
-	for (int i = 0; i < size; i += point_skip)
+	for (int i = 0; i < size; i +=1)
 	{
 
 		// cout << i << endl;
@@ -131,7 +132,6 @@ void GDExample::make_cloud()
 	mySimpleMeshInstance->set_mesh(mySimpleMesh);
 	add_child(mySimpleMeshInstance);
 	Godot::print(mySimpleMeshInstance->to_string());
-	auto bb = mySimpleMeshInstance->get_aabb();
 	// translate(-bb.position);
 	// auto cam = get_node("../Camera");
 	// cam->translate( q
@@ -141,7 +141,7 @@ void GDExample::make_cloud()
 
 void GDExample::_ready()
 {
-	//	make_cloud();
+	make_cloud();
 	return;
 }
 

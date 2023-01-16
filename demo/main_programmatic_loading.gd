@@ -13,12 +13,13 @@ signal plantcount(number)
 func _ready():
 	plant_count =0
 #	thread = Thread.new
+	load_files()
 	#load_from_json("./plants_load_order.json")
-	single_plant()
+	#single_plant()
 #	thread.start(self,"load_from_json","./plants_load_order.json")
 
 func single_plant():
-	load_add_plant("/home/yara/Downloads/phyto_vr/lettuce/west/Grenadine_11/2020-03-02__01-50-23-120_cropped.ply")
+	load_add_plant_single("/home/yara/Downloads/phyto_vr/lettuce/west/Grenadine_11/2020-03-02__01-50-23-120_cropped.ply")
 
 func load_from_json(jpth):
 	var reader = File.new()
@@ -26,7 +27,7 @@ func load_from_json(jpth):
 
 	var contents = reader.get_as_text()
 	var json_res = JSON.parse(contents)
-
+	
 	for e in json_res.result:
 		#print(e.path)
 		load_add_plant(e.path)
@@ -36,7 +37,7 @@ func load_from_json(jpth):
 func load_files():
 	var dir = Directory.new()
 	var path = "./plants"
-	var lim = 1000
+	var lim = 10
 	
 	
 	
@@ -60,8 +61,15 @@ func load_files():
 		print("couldn't open path",path)
 
 	pass # Replace with function body.
-
 func load_add_plant(pth):
+	#print("loading",pth)
+	var pt = point_class.new()
+	pt.file_pth =pth
+	pt.point_skip = 1
+	add_child(pt)
+	
+	
+func load_add_plant_single(pth):
 	#print("loading",pth)
 	var pt = point_class.new()
 	
@@ -88,7 +96,7 @@ func load_add_plant(pth):
 	var area = AreaDetector.instance()
 	area.translate(pt_transform)
 	area.set_plant(pt)
-	add_child(area)
+#	add_child(area)
 #	call_deferred("add_child",area)
 	
 	add_child(pt)

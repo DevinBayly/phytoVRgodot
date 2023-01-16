@@ -25,16 +25,17 @@ func set_plant(p):
 
 func thread_update(val):
 	plant.point_skip = val
+	
 func change_me():
 	print(mesh)
 	print(mesh.mesh)
 	mesh.mesh.surface_set_material(0,active_mat)
 	print("getting changed")
 	print("plant has been set to ",plant)
-	plant.point_skip = 1
-#	if thread.is_active():
-#		thread.wait_to_finish()
-#	thread.start(self,"thread_update",1)
+#	plant.point_skip = 1
+	if thread.is_active():
+		thread.wait_to_finish()
+	thread.start(self,"thread_update",1)
 	
 	
 func left_me():
@@ -43,7 +44,7 @@ func left_me():
 	mesh.mesh.surface_set_material(0,inactive_mat)
 	print("gaze has exited")
 	print("plant has been set to ",plant)
-	plant.point_skip = 300
-#	if thread.is_active():
-#		thread.wait_to_finish()
-#	thread.start(self,"thread_update",300)
+#	plant.point_skip = 300
+	if thread.is_active():
+		thread.wait_to_finish()
+	thread.start(self,"thread_update",300)
