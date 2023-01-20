@@ -55,9 +55,21 @@ func load_add_plant(pth):
 	var area = AreaDetector.instance()
 	var bb = pt.get_child(0).get_aabb()
 	area.translate(bb.get_center())
+	area.set_plant(pt)
 	add_child(area)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_head_collided(collider):
+	# these will be area boxes
+	collider.change_me()
+	pass # Replace with function body.
+
+
+func _on_head_exited(collider):
+	collider.left_me()
+	pass # Replace with function body.
