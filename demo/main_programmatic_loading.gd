@@ -6,6 +6,7 @@ extends Spatial
 # var b = "text"
 
 onready var point_class = preload("res://bin/new_nativescript.gdns")
+onready var AreaDetector = preload("res://Area.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_from_json("./plants_load_order.json")
@@ -50,6 +51,13 @@ func load_add_plant(pth):
 	var pt = point_class.new()
 	pt.file_pth =pth
 	add_child(pt)
+	# bring in the area and place at same locations
+	var area = AreaDetector.instance()
+	var bb = pt.get_child(0).get_aabb()
+	area.translate(bb.get_center())
+	add_child(area)
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
