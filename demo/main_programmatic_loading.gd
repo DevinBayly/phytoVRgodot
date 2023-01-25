@@ -53,13 +53,16 @@ func load_add_plant(pth):
 	pt.file_pth =pth
 	
 	pt.point_skip = 1
-	add_child(pt)
+	call_deferred("add_child",pt)
 	# bring in the area and place at same locations
 	var area = AreaDetector.instance()
-	var bb = pt.get_child(0).get_aabb()
-	area.translate(bb.get_center())
-	area.set_plant(pt)
-	call_deferred("add_child",area)
+	if (pt.get_child_count() > 0) :
+		var bb = pt.get_child(0).get_aabb()
+		area.translate(bb.get_center())
+		area.set_plant(pt)
+		call_deferred("add_child",area)
+	
+	
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,3 +79,5 @@ func _on_head_collided(collider):
 func _on_head_exited(collider):
 	collider.left_me()
 	pass # Replace with function body.
+func _exit_tree():
+	thread.wait_to_finish()

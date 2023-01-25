@@ -4,6 +4,8 @@
 using namespace godot;
 using namespace std;
 
+bool has_child=false;
+
 void GDExample::_register_methods() {
 	register_method("_process", &GDExample::_process);
 	register_property<GDExample, float>("amplitude", &GDExample::amplitude, 10.0);
@@ -45,6 +47,7 @@ struct point {
 
 void GDExample::make_cloud() {
 
+	has_child = true;
 	auto mat = ResourceLoader::get_singleton()->load("res://mat.tres");
 	Godot::print("_ready");
 	Godot::print(String::num_scientific(amplitude));
@@ -185,5 +188,11 @@ void GDExample::set_point_skip(int num) {
 	point_skip = num;
 	Godot::print("changing the number of points in the point cloud");
 	Godot::print(String::num_scientific(point_skip));
-
+	auto num_children = get_child_count();
+	Godot::print(String::num_scientific(num_children));
+	if (num_children >0) {
+		auto child= get_child(0);
+		child->queue_free();
+		Godot::print("removed child");
+	}
 }
