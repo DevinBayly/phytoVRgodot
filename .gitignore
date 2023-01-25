@@ -1,10 +1,9 @@
-*png
-*json
-*import
+*.ply
+*.png
+*.import
+*.json
+*.dblite
 *.so
+*.os
+godot-headers
 *.sw*
-*.dblite*
-godot-headers*
-*ply
-*md5
-*gdnlib

@@ -1,16 +1,18 @@
 #include "gdexample.h"
 
+
 using namespace godot;
 using namespace std;
 
-void GDExample::_register_methods()
-{
+bool has_child=false;
+
+void GDExample::_register_methods() {
 	register_method("_process", &GDExample::_process);
 	register_property<GDExample, float>("amplitude", &GDExample::amplitude, 10.0);
 	register_property<GDExample, float>("speed", &GDExample::set_speed, &GDExample::get_speed, 1.0);
 	register_property<GDExample, String>("file_pth", &GDExample::set_file_path, &GDExample::get_file_path, "specify plant ply file");
 	register_property<GDExample, int>("point_skip", &GDExample::set_point_skip, &GDExample::get_point_skip, 1);
-
+	register_method("make_cloud",&GDExample::make_cloud);
 	register_signal<GDExample>((char *)"position_changed", "node", GODOT_VARIANT_TYPE_OBJECT, "new_pos", GODOT_VARIANT_TYPE_VECTOR2);
 }
 
@@ -30,10 +32,10 @@ void GDExample::_init()
 	// for some reason the tutorial initializes values here, which seems like it overrides the values set in the property window of the editor.
 	time_passed = 0.0;
 	amplitude = 10.0;
-	speed = 10.0;
-	point_skip = 1;
-	already_rendered = false;
-
+	 speed = 10.0;
+	 point_skip = 1;
+	 mesh_instance = MeshInstance::_new(); // This is how we do things here.
+	 array_mesh = ArrayMesh::_new();
 	// but if I don't set them here then they remain un initialized. How do I get the values typed into the property window to get used for my class members?
 
 	this->_ready();
@@ -49,9 +51,9 @@ struct point
 	unsigned char b;
 };
 
-void GDExample::make_cloud()
-{
-	already_rendered = true;
+void GDExample::make_cloud() {
+
+	has_child = true;
 	auto mat = ResourceLoader::get_singleton()->load("res://mat.tres");
 	Godot::print("_ready");
 	Godot::print(String::num_scientific(point_skip));
@@ -61,7 +63,6 @@ void GDExample::make_cloud()
 	PoolVector3Array vertices;
 
 	std::chrono::steady_clock::time_point beg = std::chrono::steady_clock::now();
-	auto mySimpleMesh = ArrayMesh::_new();
 	godot::Array arrays; // kind of a struct-of-arrays approach to vertex attributes (or array of arrays with enumerated keys)
 
 	// Vertex colors don't show correctly, probably because there's no material/skin yet.
@@ -96,10 +97,9 @@ void GDExample::make_cloud()
 
 	vector<point *> points;
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-	vector<char> buf(fend - fbeg);
-	f.read(buf.data(), fend - fbeg);
-	for (int i = 0; i < size; i += point_skip)
-	{
+	vector<char> buf(fend-fbeg);
+	f.read(buf.data(),fend-fbeg);
+	for (int i =0; i < size;i+=point_skip) {
 
 		// cout << i << endl;
 		//  read 27 bytes and assign them to the parts of a point that matter
@@ -124,24 +124,23 @@ void GDExample::make_cloud()
 	arrays.resize(ArrayMesh::ARRAY_MAX);
 	arrays[ArrayMesh::ARRAY_VERTEX] = vertices; // required
 	arrays[ArrayMesh::ARRAY_COLOR] = colors;
-	mySimpleMesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
-	mySimpleMesh->surface_set_material(0, mat);
+	array_mesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
+	array_mesh->surface_set_material(0,mat);
 	// pMeshInstance = new MeshInstance; // NO! BAD! Will crash the game!
-	auto mySimpleMeshInstance = MeshInstance::_new(); // This is how we do things here.
-	mySimpleMeshInstance->set_mesh(mySimpleMesh);
-	add_child(mySimpleMeshInstance);
-	Godot::print(mySimpleMeshInstance->to_string());
-	auto bb = mySimpleMeshInstance->get_aabb();
-	// translate(-bb.position);
-	// auto cam = get_node("../Camera");
-	// cam->translate( q
+	mesh_instance->set_mesh(array_mesh);
+	auto bb = mesh_instance->get_aabb();
+	//translate(-bb.position);
+	//auto cam = get_node("../Camera");
+	Godot::print(bb);
+	//cam->translate( q
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "[ms]" << std::endl;
 }
 
-void GDExample::_ready()
-{
-	//	make_cloud();
+void GDExample::_ready() {
+//	make_cloud();
+
+	add_child(mesh_instance);
 	return;
 }
 
@@ -187,26 +186,16 @@ String GDExample::get_file_path()
 {
 	return file_pth;
 }
-void GDExample::set_point_skip(int skip)
-{
-	// potentially remove existing point cloud and re-render
-	Godot::print("given call to set points ");
-	if (already_rendered) {
-		// need to remove the previous child mesh
-		Godot::print("removing old");
-		int num_children = get_child_count();
-		Godot::print(String::num_scientific(num_children));
-		for (int i = 0 ; i < num_children;i++) {
-		auto child_points = get_child(0);
-		remove_child(child_points);
-		child_points->queue_free();
-		}
-	}
-	point_skip = skip;
-	make_cloud();
 
-}
-int GDExample::get_point_skip()
-{
+int GDExample::get_point_skip() {
 	return point_skip;
+}
+
+void GDExample::set_point_skip(int num) {
+	point_skip = num;
+	Godot::print("changing the number of points in the point cloud");
+	Godot::print(String::num_scientific(point_skip));
+	// now we reset the array mesh surface and prep it for getting file contents added with make cloud
+	array_mesh->clear_surfaces();
+	make_cloud();
 }

@@ -28,8 +28,10 @@ namespace godot
         int point_skip;
         float time_passed;
         float time_emit;
-        bool already_rendered;
+        int point_skip;
         String file_pth;
+        MeshInstance * mesh_instance;
+        ArrayMesh * array_mesh;
 
     public:
         static void _register_methods();
@@ -47,7 +49,10 @@ namespace godot
         void make_cloud();
         void set_file_path(String pth);
 
+        void set_point_skip(int num);
+
         String get_file_path();
+        int get_point_skip();
     };
 }
 

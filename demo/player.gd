@@ -115,10 +115,12 @@ func _input(event):
 
 
 func _on_RayCast_collided(collider):
+	print("collided")
 	emit_signal("collided",collider)
 	pass # Replace with function body.
 
 
 func _on_RayCast_exited(collider):
+	print("exited")
 	emit_signal("exited",collider)
 	pass # Replace with function body.

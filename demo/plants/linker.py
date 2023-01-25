@@ -1,6 +1,8 @@
-from pathlib import Path
 import subprocess as sp
+from pathlib import Path
 
-plys = sorted((Path.home()/"Downloads/phyto_vr").rglob("*ply"))
+plys = Path("/home/yara/Downloads/phyto_vr/").rglob("*ply")
+
 for i,ply in enumerate(plys):
+
     sp.run(f"ln -s {ply} plant{i}.ply",shell=True)
