@@ -4,12 +4,13 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var thread
 onready var point_class = preload("res://bin/new_nativescript.gdns")
 onready var AreaDetector = preload("res://Area.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	load_from_json("./plants_load_order.json")
+	thread = Thread.new()
+	thread.start(self,"load_from_json","./plants_load_order.json")
 func load_from_folder():
 	var dir = Directory.new()
 	var path = "./plants"
@@ -58,7 +59,7 @@ func load_add_plant(pth):
 	var bb = pt.get_child(0).get_aabb()
 	area.translate(bb.get_center())
 	area.set_plant(pt)
-	add_child(area)
+	call_deferred("add_child",area)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
