@@ -29,6 +29,8 @@ namespace godot
         float time_emit;
         int point_skip;
         String file_pth;
+        MeshInstance * mesh_instance;
+        ArrayMesh * array_mesh;
 
     public:
         static void _register_methods();

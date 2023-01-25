@@ -31,6 +31,8 @@ void GDExample::_init() {
 	amplitude = 10.0;
 	 speed = 10.0;
 	 point_skip = 1;
+	 mesh_instance = MeshInstance::_new(); // This is how we do things here.
+	 array_mesh = ArrayMesh::_new();
 	// but if I don't set them here then they remain un initialized. How do I get the values typed into the property window to get used for my class members?
 
 	this->_ready();
@@ -57,7 +59,6 @@ void GDExample::make_cloud() {
 	PoolVector3Array vertices;
 
 	std::chrono::steady_clock::time_point beg = std::chrono::steady_clock::now();
-	auto mySimpleMesh = ArrayMesh::_new();
 	godot::Array arrays; // kind of a struct-of-arrays approach to vertex attributes (or array of arrays with enumerated keys)
 
 	// Vertex colors don't show correctly, probably because there's no material/skin yet.
@@ -120,13 +121,11 @@ void GDExample::make_cloud() {
 	arrays.resize(ArrayMesh::ARRAY_MAX);
 	arrays[ArrayMesh::ARRAY_VERTEX] = vertices; // required
 	arrays[ArrayMesh::ARRAY_COLOR] = colors;
-	mySimpleMesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
-	mySimpleMesh->surface_set_material(0,mat);
+	array_mesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
+	array_mesh->surface_set_material(0,mat);
 	// pMeshInstance = new MeshInstance; // NO! BAD! Will crash the game!
-	auto mySimpleMeshInstance = MeshInstance::_new(); // This is how we do things here.
-	mySimpleMeshInstance->set_mesh(mySimpleMesh);
-	add_child(mySimpleMeshInstance);
-	auto bb = mySimpleMeshInstance->get_aabb();
+	mesh_instance->set_mesh(array_mesh);
+	auto bb = mesh_instance->get_aabb();
 	//translate(-bb.position);
 	//auto cam = get_node("../Camera");
 	Godot::print(bb);
@@ -138,6 +137,8 @@ void GDExample::make_cloud() {
 
 void GDExample::_ready() {
 //	make_cloud();
+
+	add_child(mesh_instance);
 	return;
 }
 
@@ -173,7 +174,6 @@ float GDExample::get_speed() {
 void GDExample::set_file_path(String pth) {
 	cout << "setting file path" << endl;
 	file_pth = pth;
-	make_cloud();
 }
 
 String GDExample::get_file_path() {
@@ -188,11 +188,7 @@ void GDExample::set_point_skip(int num) {
 	point_skip = num;
 	Godot::print("changing the number of points in the point cloud");
 	Godot::print(String::num_scientific(point_skip));
-	auto num_children = get_child_count();
-	Godot::print(String::num_scientific(num_children));
-	if (num_children >0) {
-		auto child= get_child(0);
-		child->queue_free();
-		Godot::print("removed child");
-	}
+	// now we reset the array mesh surface and prep it for getting file contents added with make cloud
+	array_mesh->clear_surfaces();
+	make_cloud();
 }
