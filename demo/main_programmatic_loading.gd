@@ -38,7 +38,7 @@ func load_from_json(jpth):
 
 	var contents = reader.get_as_text()
 	var json_res = JSON.parse(contents)
-	var lim = 10
+	var lim = 100
 	for e in json_res.result:
 		#print(e.path)
 		load_add_plant(e.path)
@@ -52,7 +52,7 @@ func load_add_plant(pth):
 	var pt = point_class.new()
 	pt.file_pth =pth
 	
-	pt.point_skip = 1
+	pt.point_skip = 300
 	call_deferred("add_child",pt)
 	# bring in the area and place at same locations
 	var area = AreaDetector.instance()
