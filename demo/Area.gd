@@ -51,3 +51,18 @@ func left_me():
 func _exit_tree():
 	if thread.is_active():
 		thread.wait_to_finish()
+
+func decide_action():
+	if selected:
+		# this means we should load hi fidelity
+		change_me()
+	else:
+		left_me()
+
+var selected = false
+func _on_Area_input_event(camera, event:InputEvent, position, normal, shape_idx):
+	if event is InputEventMouseButton:
+		if event.doubleclick:
+			selected = !selected
+			decide_action()
+	pass # Replace with function body.

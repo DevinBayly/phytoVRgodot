@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
-[ext_resource path="res://RayCast.gd" type="Script" id=2]
 
 [node name="head" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.334541, 0 )
@@ -10,13 +9,3 @@ script = ExtResource( 1 )
 [node name="torso" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="torso"]
-
-[node name="RayCast" type="RayCast" parent="torso"]
-enabled = true
-cast_to = Vector3( 0, 0, -5 )
-collide_with_areas = true
-collide_with_bodies = false
-script = ExtResource( 2 )
-
-[connection signal="collided" from="torso/RayCast" to="." method="_on_RayCast_collided"]
-[connection signal="exited" from="torso/RayCast" to="." method="_on_RayCast_exited"]

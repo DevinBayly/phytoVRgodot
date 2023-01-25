@@ -38,7 +38,7 @@ func load_from_json(jpth):
 
 	var contents = reader.get_as_text()
 	var json_res = JSON.parse(contents)
-	var lim = 100
+	var lim = 10
 	for e in json_res.result:
 		#print(e.path)
 		load_add_plant(e.path)
@@ -70,14 +70,5 @@ func load_add_plant(pth):
 #	pass
 
 
-func _on_head_collided(collider):
-	# these will be area boxes
-	collider.change_me()
-	pass # Replace with function body.
-
-
-func _on_head_exited(collider):
-	collider.left_me()
-	pass # Replace with function body.
 func _exit_tree():
 	thread.wait_to_finish()

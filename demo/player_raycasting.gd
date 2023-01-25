@@ -1,5 +1,6 @@
 extends KinematicBody
-
+signal collided(collider)
+signal exited(collider)
 const GRAVITY = -24.8
 var vel = Vector3()
 export var MAX_SPEED = 1
@@ -111,3 +112,15 @@ func _input(event):
 	if event is InputEventMouseButton:
 		click = event.pressed
 	
+
+
+func _on_RayCast_collided(collider):
+	print("collided")
+	emit_signal("collided",collider)
+	pass # Replace with function body.
+
+
+func _on_RayCast_exited(collider):
+	print("exited")
+	emit_signal("exited",collider)
+	pass # Replace with function body.
