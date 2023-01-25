@@ -1,5 +1,6 @@
 #include "gdexample.h"
 
+
 using namespace godot;
 using namespace std;
 
@@ -8,7 +9,8 @@ void GDExample::_register_methods() {
 	register_property<GDExample, float>("amplitude", &GDExample::amplitude, 10.0);
 	register_property<GDExample, float>("speed", &GDExample::set_speed, &GDExample::get_speed, 1.0);
 	register_property<GDExample, String>("file_pth", &GDExample::set_file_path, &GDExample::get_file_path, "specify plant ply file");
-
+	register_property<GDExample, int>("point_skip", &GDExample::set_point_skip, &GDExample::get_point_skip, 1);
+	register_method("make_cloud",&GDExample::make_cloud);
 	register_signal<GDExample>((char *)"position_changed", "node", GODOT_VARIANT_TYPE_OBJECT, "new_pos", GODOT_VARIANT_TYPE_VECTOR2);
 }
 
@@ -26,6 +28,7 @@ void GDExample::_init() {
 	 time_passed = 0.0;
 	amplitude = 10.0;
 	 speed = 10.0;
+	 point_skip = 1;
 	// but if I don't set them here then they remain un initialized. How do I get the values typed into the property window to get used for my class members?
 
 	this->_ready();
@@ -88,7 +91,7 @@ void GDExample::make_cloud() {
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	vector<char> buf(fend-fbeg);
 	f.read(buf.data(),fend-fbeg);
-	for (int i =0; i < size;i++) {
+	for (int i =0; i < size;i+=point_skip) {
 
 		//cout << i << endl;
 		// read 27 bytes and assign them to the parts of a point that matter
@@ -172,4 +175,15 @@ void GDExample::set_file_path(String pth) {
 
 String GDExample::get_file_path() {
 	return file_pth;
+}
+
+int GDExample::get_point_skip() {
+	return point_skip;
+}
+
+void GDExample::set_point_skip(int num) {
+	point_skip = num;
+	Godot::print("changing the number of points in the point cloud");
+	Godot::print(String::num_scientific(point_skip));
+
 }

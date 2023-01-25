@@ -27,6 +27,7 @@ namespace godot
         float amplitude;
         float time_passed;
         float time_emit;
+        int point_skip;
         String file_pth;
 
     public:
@@ -43,7 +44,10 @@ namespace godot
         void make_cloud();
         void set_file_path(String pth);
 
+        void set_point_skip(int num);
+
         String get_file_path();
+        int get_point_skip();
     };
 }
 

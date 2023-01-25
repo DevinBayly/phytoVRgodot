@@ -50,6 +50,8 @@ func load_add_plant(pth):
 	print("loading",pth)
 	var pt = point_class.new()
 	pt.file_pth =pth
+	
+	pt.point_skip = 1
 	add_child(pt)
 	# bring in the area and place at same locations
 	var area = AreaDetector.instance()
