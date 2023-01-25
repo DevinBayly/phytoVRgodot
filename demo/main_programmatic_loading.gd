@@ -50,17 +50,17 @@ func load_from_json(jpth):
 func load_add_plant(pth):
 	print("loading",pth)
 	var pt = point_class.new()
-	pt.file_pth =pth
-	
-	pt.point_skip = 300
-	call_deferred("add_child",pt)
-	# bring in the area and place at same locations
-	var area = AreaDetector.instance()
-	if (pt.get_child_count() > 0) :
-		var bb = pt.get_child(0).get_aabb()
-		area.translate(bb.get_center())
-		area.set_plant(pt)
-		call_deferred("add_child",area)
+#	pt.file_pth =pth
+#
+#	pt.point_skip = 300
+#	call_deferred("add_child",pt)
+#	# bring in the area and place at same locations
+#	var area = AreaDetector.instance()
+#	if (pt.get_child_count() > 0) :
+#		var bb = pt.get_child(0).get_aabb()
+#		area.translate(bb.get_center())
+#		area.set_plant(pt)
+#		call_deferred("add_child",area)
 	
 	
 	

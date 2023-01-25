@@ -4,7 +4,6 @@
 using namespace godot;
 using namespace std;
 
-bool has_child=false;
 
 void GDExample::_register_methods() {
 	register_method("_process", &GDExample::_process);
@@ -17,6 +16,7 @@ void GDExample::_register_methods() {
 }
 
 GDExample::GDExample() {
+	cout <<"starting hasn't failed yet" << endl;
 }
 
 GDExample::~GDExample() {
@@ -24,6 +24,7 @@ GDExample::~GDExample() {
 }
 
 void GDExample::_init() {
+	cout << "anything here?"<< endl;
 	Godot::print("_init");
 
 	// for some reason the tutorial initializes values here, which seems like it overrides the values set in the property window of the editor.
@@ -49,7 +50,6 @@ struct point {
 
 void GDExample::make_cloud() {
 
-	has_child = true;
 	auto mat = ResourceLoader::get_singleton()->load("res://mat.tres");
 	Godot::print("_ready");
 	Godot::print(String::num_scientific(amplitude));
@@ -95,6 +95,7 @@ void GDExample::make_cloud() {
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	vector<char> buf(fend-fbeg);
 	f.read(buf.data(),fend-fbeg);
+	f.close();
 	for (int i =0; i < size;i+=point_skip) {
 
 		//cout << i << endl;
