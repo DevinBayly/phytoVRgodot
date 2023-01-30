@@ -20,13 +20,13 @@ jobs:
           python -m pip install scons
           scons --version
      - name: cache-godot-cpp
-       id: cache-godot-cpp
+       id: cache-dev-dir
        uses: actions/cache@v3
        with:
-        path: ./godot-cpp
-        key: ${{ runner.os }}-godot-cpp 
+        path: ./
+        key: dev-dir-1.0 
      - name: get repo 
-       if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
+       if: steps.cache-dev-dir.outputs.cache-hit != 'true'
        uses: actions/checkout@v3
        with:
             submodules: recursive
@@ -34,10 +34,10 @@ jobs:
        if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
        run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
-     - run: |
-         dir
-     - name: build plugin
-       run: |
-         scons platform=windows target=release
+     #- run: |
+     #    dir
+     #- name: build plugin
+     #  run: |
+     #    scons platform=windows target=release
      
           
