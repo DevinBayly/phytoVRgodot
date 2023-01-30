@@ -23,7 +23,15 @@ jobs:
        uses: actions/checkout@v3
        with:
             submodules: recursive
-     - run: |
+     - name: cache-godot-cpp
+       id: cache-godot-cpp
+       uses: actions/cache@v3
+       with:
+        path: ./godot-cpp/bin
+        key: ${{ runner.os }}-godot-cpp-bin
+     - name: make-godot-cpp
+       if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
+       run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
      - run: |
          pwd
