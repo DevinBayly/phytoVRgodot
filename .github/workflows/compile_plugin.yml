@@ -6,42 +6,43 @@ jobs:
     runs-on: windows-latest
     steps:
       # go get python scons
-     - name: Set up Python 3.x
-       uses: actions/setup-python@v4
-       with:
-        # Semantic version range syntax or exact version of a Python version
-        python-version: ${{ inputs.python-version }}
-        # Optional - x64 or x86 architecture, defaults to x64
-        architecture: ${{ inputs.python-arch }}
-     - name: Setup scons
-       shell: bash
-       run: |
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: ${{ inputs.python-version }}
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: ${{ inputs.python-arch }}
+      - name: Setup scons
+        shell: bash
+        run: |
           python -c "import sys; print(sys.version)"
           python -m pip install scons
           scons --version
-     
-#      - name: get repo 
-#        uses: actions/checkout@v3
+
+      - name: get repo 
+        uses: actions/checkout@v3
        
-#      - name: cache-godot-cpp
-#        id: cache-dev-dir
-#        uses: actions/cache@v3
-#        with:
-#         path: ./
-#         key: dev-dir-1.0 
-     - name: get repo 
-#        if: steps.cache-dev-dir.outputs.cache-hit != 'true'
-       uses: actions/checkout@v3
-       with:
+      - name: cache-godot-cpp
+        id: cache-dev-dir
+        uses: actions/cache@v3
+        with:
+         path: ./godot-cpp
+         key: dev-dir-1.0 
+      - name: get repo 
+        if: steps.cache-dev-dir.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+        with:
             submodules: recursive
-     - name: make-godot-cpp
-#        if: steps.cache-dev-dir.outputs.cache-hit != 'true'
-       run: |
+      - name: make-godot-cpp
+        if: steps.cache-dev-dir.outputs.cache-hit != 'true'
+        run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
-     - run: |
+      - run: |
          dir
-     - name: build plugin
-       run: |
+      - name: build plugin
+        if: steps.cache-dev-dir.outputs.cache-hit == 'true'
+        run: |
          scons platform=windows target=release
      
           
