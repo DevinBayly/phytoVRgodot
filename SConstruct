@@ -13,8 +13,6 @@ elif sys.platform == "win32" or sys.platform == "msys":
 else:
     raise ValueError("Could not detect platform automatically, please specify with platform=<platform>")
 
-# Gets the standard flags CC, CCX, etc.
-env = Environment(TARGET_ARCH="amd64")
 
 # Define our options
 opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r', 'release']))
@@ -32,20 +30,11 @@ cpp_library = "libgodot-cpp"
 # only support 64 at this time..
 bits = 64
 
+# Gets the standard flags CC, CCX, etc.
+env = Environment(TARGET_ARCH="amd64")
 # Updates the environment with the option variables.
 opts.Update(env)
 
-# Process some arguments
-if env['use_llvm']:
-    env['CC'] = 'clang'
-    env['CXX'] = 'clang++'
-
-if env['p'] != '':
-    env['platform'] = env['p']
-
-if env['platform'] == '':
-    print("No valid target platform selected.")
-    quit();
 
 # For the reference:
 # - CCFLAGS are compilation flags shared between C and C++
@@ -55,23 +44,22 @@ if env['platform'] == '':
 # - CPPDEFINES are for pre-processor defines
 # - LINKFLAGS are for linking flags
 
-elif env['platform'] == "windows":
-    env['target_path'] += 'win64/'
-    cpp_library += '.windows'
-    # This makes sure to keep the session environment variables on windows,
-    # that way you can run scons in a vs 2017 prompt and it will find all the required tools
-    env.Append(ENV=os.environ)
+env['target_path'] += 'win64/'
+cpp_library += '.windows'
+# This makes sure to keep the session environment variables on windows,
+# that way you can run scons in a vs 2017 prompt and it will find all the required tools
+# env.Append(ENV=os.environ)
 
-    env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
-    env.Append(CCFLAGS=['-W3', '-GR'])
-    env.Append(CXXFLAGS='/std:c++14')
-    if env['target'] in ('debug', 'd'):
-        env.Append(CPPDEFINES=['_DEBUG'])
-        env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
-        env.Append(LINKFLAGS=['-DEBUG'])
-    else:
-        env.Append(CPPDEFINES=['NDEBUG'])
-        env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
+env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
+env.Append(CCFLAGS=['-W3', '-GRa','/std:c++14'])
+env.Append(CXXFLAGS='/std:c++14')
+if env['target'] in ('debug', 'd'):
+    env.Append(CPPDEFINES=['_DEBUG'])
+    env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
+    env.Append(LINKFLAGS=['-DEBUG'])
+else:
+    env.Append(CPPDEFINES=['NDEBUG'])
+    env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
 
 if env['target'] in ('debug', 'd'):
     cpp_library += '.debug'
