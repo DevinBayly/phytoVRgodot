@@ -21,6 +21,8 @@ jobs:
           scons --version
      - name: get repo 
        uses: actions/checkout@v3
+       with:
+            submodules: recursive
      - run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
      - run: |
