@@ -78,6 +78,8 @@ if env['target'] in ('debug', 'd'):
 else:
     cpp_library += '.release'
 
+env_dump = env.Dump()
+print("dumping environment,",env_dump)
 cpp_library += '.' + str(bits)
 
 # make sure our binding library is properly includes
