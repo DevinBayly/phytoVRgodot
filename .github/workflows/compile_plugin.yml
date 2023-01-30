@@ -19,5 +19,6 @@ jobs:
           python -c "import sys; print(sys.version)"
           python -m pip install scons
           scons --version
+     - uses: actions/checkout@v3
      - run: |
-          pwd
+          dir
