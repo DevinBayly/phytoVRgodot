@@ -33,8 +33,5 @@ jobs:
        if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
        run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
-     - run: |
-         pwd
-     - run: |
-         scons platform=windows target=release
+     
           
