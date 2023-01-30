@@ -19,24 +19,25 @@ jobs:
           python -c "import sys; print(sys.version)"
           python -m pip install scons
           scons --version
-     - name: get repo 
-       uses: actions/checkout@v3
-       with:
-            submodules: recursive
      - name: cache-godot-cpp
        id: cache-godot-cpp
        uses: actions/cache@v3
        with:
-        path: ./godot-cpp/bin
-        key: ${{ runner.os }}-godot-cpp-bin
+        path: ./godot-cpp
+        key: ${{ runner.os }}-godot-cpp 
+     - name: get repo 
+       if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
+       uses: actions/checkout@v3
+       with:
+            submodules: recursive
      - name: make-godot-cpp
        if: steps.cache-godot-cpp.outputs.cache-hit != 'true'
        run: |
           cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
-     - run: |
-         pwd
-     - name: build plugin
-       run: |
-         scons platform=windows target=release use_llvm=yes
+     #- run: |
+     #    pwd
+     #- name: build plugin
+     #  run: |
+     #    scons platform=windows target=release use_llvm=yes
      
           
