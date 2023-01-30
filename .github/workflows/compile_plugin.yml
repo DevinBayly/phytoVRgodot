@@ -19,6 +19,12 @@ jobs:
           python -c "import sys; print(sys.version)"
           python -m pip install scons
           scons --version
-     - uses: actions/checkout@v3
+     - name: get repo 
+       uses: actions/checkout@v3
      - run: |
-          dir
+          cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
+     - run: |
+         pwd
+     - run: |
+         scons platform=windows target=release
+          
