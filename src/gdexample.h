@@ -6,6 +6,8 @@
 #include <vector>
 #include <chrono>
 #include <iostream>
+// somehow this fixes the getline error encountered on windows?
+#include <string>
 #include <ResourceLoader.hpp>
 #include <Material.hpp>
 #include <fstream>
