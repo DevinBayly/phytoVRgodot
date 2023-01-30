@@ -105,14 +105,14 @@ elif env['platform'] == "windows" and host_platform =="linux":
     env["LINK"] = "x86_64-w64-mingw32-g++"
 
     env.Append(CCFLAGS=["-O3", "-Wwrite-strings"])
-    env.Append(
-        LINKFLAGS=[
-            "--static",
-            "-Wl,--no-undefined",
-            "-static-libgcc",
-            "-static-libstdc++",
-        ]
-    )
+    # env.Append(
+    #     LINKFLAGS=[
+    #         "--static",
+    #         "-Wl,--no-undefined",
+    #         "-static-libgcc",
+    #         "-static-libstdc++",
+    #     ]
+    # )
     # env.Append(ENV=os.environ)
 
     # env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
@@ -143,6 +143,7 @@ env.Append(LIBS=[cpp_library])
 env.Append(CPPPATH=['src/'])
 sources = Glob('src/*.cpp')
 
+print("debugging output name",env["target_name"],cpp_library)
 library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
 
 Default(library)
