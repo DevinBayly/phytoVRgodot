@@ -37,6 +37,7 @@ jobs:
      - run: |
          dir
      - name: build plugin
+       if: steps.cache-dev-dir.outputs.cache-hit == 'true'
        run: |
          scons platform=windows target=release
      
