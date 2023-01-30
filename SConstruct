@@ -14,7 +14,7 @@ else:
     raise ValueError("Could not detect platform automatically, please specify with platform=<platform>")
 
 # Gets the standard flags CC, CCX, etc.
-env = DefaultEnvironment()
+env = Environment(TARGET_ARCH="amd64")
 
 # Define our options
 opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r', 'release']))
@@ -55,28 +55,6 @@ if env['platform'] == '':
 # - CPPDEFINES are for pre-processor defines
 # - LINKFLAGS are for linking flags
 
-# Check our platform specifics
-if env['platform'] == "osx":
-    env['target_path'] += 'osx/'
-    cpp_library += '.osx'
-    env.Append(CCFLAGS=['-arch', 'x86_64'])
-    env.Append(CXXFLAGS=['-std=c++17'])
-    env.Append(LINKFLAGS=['-arch', 'x86_64'])
-    if env['target'] in ('debug', 'd'):
-        env.Append(CCFLAGS=['-g', '-O2'])
-    else:
-        env.Append(CCFLAGS=['-g', '-O3'])
-
-elif env['platform'] in ('x11', 'linux'):
-    env['target_path'] += 'x11/'
-    cpp_library += '.linux'
-    env.Append(CCFLAGS=['-fPIC'])
-    env.Append(CXXFLAGS=['-std=c++17'])
-    if env['target'] in ('debug', 'd'):
-        env.Append(CCFLAGS=['-g3', '-Og'])
-    else:
-        env.Append(CCFLAGS=['-g', '-O3'])
-
 elif env['platform'] == "windows":
     env['target_path'] += 'win64/'
     cpp_library += '.windows'
@@ -86,7 +64,7 @@ elif env['platform'] == "windows":
 
     env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
     env.Append(CCFLAGS=['-W3', '-GR'])
-    env.Append(CXXFLAGS='/std:c++17')
+    env.Append(CXXFLAGS='/std:c++14')
     if env['target'] in ('debug', 'd'):
         env.Append(CPPDEFINES=['_DEBUG'])
         env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
