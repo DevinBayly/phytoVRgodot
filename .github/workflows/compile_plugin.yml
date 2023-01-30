@@ -19,25 +19,13 @@ jobs:
           python -c "import sys; print(sys.version)"
           python -m pip install scons
           scons --version
-     - name: cache-godot-cpp
-       id: cache-dev-dir
-       uses: actions/cache@v3
-       with:
-        path: ./
-        key: dev-dir-1.0 
+     
      - name: get repo 
-       if: steps.cache-dev-dir.outputs.cache-hit != 'true'
        uses: actions/checkout@v3
-       with:
-            submodules: recursive
-     - name: make-godot-cpp
-       if: steps.cache-dev-dir.outputs.cache-hit != 'true'
-       run: |
-          cd godot-cpp;scons platform=windows generate_bindings=yes target=release -j4
+      
      - run: |
          dir
      - name: build plugin
-       if: steps.cache-dev-dir.outputs.cache-hit == 'true'
        run: |
          scons platform=windows target=release
      
