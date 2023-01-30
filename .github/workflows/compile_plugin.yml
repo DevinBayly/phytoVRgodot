@@ -37,6 +37,6 @@ jobs:
          pwd
      - name: build plugin
        run: |
-         scons platform=windows target=release
+         scons platform=windows target=release use_llvm=yes
      
           
