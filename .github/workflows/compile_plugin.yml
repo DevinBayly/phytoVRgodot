@@ -44,13 +44,16 @@ jobs:
         if: steps.cache-dev-dir.outputs.cache-hit == 'true'
         run: |
          scons platform=windows target=release
-     
+      - name: zip files
+        run: |
+          zip win64.zip -r ./demo/bin/
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./demo/bin/win64/libgdexample.dll
-          asset_name: mything
+          file: win64.zip
+          asset_name: win64.zip
           tag: ${{ github.ref }}
           overwrite: true
-          body: "This is my release text"
+          body: "Zip file of the plugin for windows"
+      
