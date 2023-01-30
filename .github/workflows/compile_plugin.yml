@@ -46,7 +46,7 @@ jobs:
          scons platform=windows target=release
       - name: zip files
         run: |
-          zip win64.zip -r ./demo/bin/
+          tar -c -a -f win64.zip ./demo/bin
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
