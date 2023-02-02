@@ -4,6 +4,7 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export var lim = 1000
 var thread
 onready var point_class = preload("res://bin/new_nativescript.gdns")
 onready var AreaDetector = preload("res://Area.tscn")
@@ -14,7 +15,7 @@ func _ready():
 func load_from_folder():
 	var dir = Directory.new()
 	var path = "./plants"
-	var lim = 4
+
 	if dir.open(path) == OK:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
@@ -38,7 +39,7 @@ func load_from_json(jpth):
 
 	var contents = reader.get_as_text()
 	var json_res = JSON.parse(contents)
-	var lim = 10
+
 	for e in json_res.result:
 		#print(e.path)
 		load_add_plant(e.path)

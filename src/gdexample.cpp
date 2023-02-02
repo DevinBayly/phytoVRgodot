@@ -95,6 +95,7 @@ void GDExample::make_cloud() {
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	vector<char> buf(fend-fbeg);
 	f.read(buf.data(),fend-fbeg);
+	f.close();
 	for (int i =0; i < size;i+=point_skip) {
 
 		//cout << i << endl;
