@@ -9,6 +9,7 @@
 script = ExtResource( 4 )
 
 [node name="Spatial" type="Spatial" parent="."]
+transform = Transform( -0.996042, 0.00306685, 0.0888287, 0.00303056, 0.999995, -0.000543386, -0.0888299, -0.000272007, -0.996047, 0, -0.0474968, 0 )
 script = ExtResource( 3 )
 
 [node name="head" parent="Spatial" instance=ExtResource( 1 )]

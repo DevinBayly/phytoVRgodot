@@ -17,7 +17,7 @@ script = ExtResource( 3 )
 
 [node name="TCP_side_panel" parent="." groups=["control"] instance=ExtResource( 1 )]
 visible = false
-margin_left = 1442.0
+margin_left = 1460.0
 margin_right = 1922.0
 margin_bottom = 1077.0
 

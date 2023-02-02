@@ -1,4 +1,5 @@
 #include "gdexample.h"
+#include "color_map.h"
 
 
 using namespace godot;
@@ -74,7 +75,7 @@ void GDExample::make_cloud() {
 	Godot::print("loading file");
 	Godot::print(file_pth);
 	string s;
-	for (int i = 0;i< 11;i++ ) {
+	for (int i = 0;i< 8;i++ ) {
 		getline(f,s);
 	}
 	int fbeg = int(f.tellg());
@@ -84,7 +85,7 @@ void GDExample::make_cloud() {
 	//vector<char> buf(fend-fbeg);
 	//f.read(buf.data(),fend-fbeg);
 	// figure out from the size of the data how many points we can have and print that
-	int correct_size = 27;
+	int correct_size = 24;
 	int buf_size = fend-fbeg;
 	int size = (buf_size)/correct_size;
 	cout << buf_size << endl;
@@ -99,8 +100,8 @@ void GDExample::make_cloud() {
 	for (int i =0; i < size;i+=point_skip) {
 
 		//cout << i << endl;
-		// read 27 bytes and assign them to the parts of a point that matter
-		point * p = reinterpret_cast<point *>(buf.data()+i*27);
+		// read correct_size bytes and assign them to the parts of a point that matter
+		point * p = reinterpret_cast<point *>(buf.data()+i*correct_size);
 		//cout << p->x << endl;
 		//cout << p->y << endl;
 		//cout << p->z << endl;
@@ -108,9 +109,14 @@ void GDExample::make_cloud() {
 		//cout << int(p->g) << endl;
 		//cout << int(p->b) << endl;
 		//points.push_back(p);
-		vertices.append(Vector3(p->x  - 409001,p->y- 0.957346,p->z- 3660087.5));
+		// vertices.append(Vector3(p->x  - 409001,p->y- 0.957346,p->z- 3660087.5));
+		auto v = Vector3(p->x,p->y,p->z);
+		vertices.append(v);
 		//vertices.append(Vector3(p->x  ,p->y,p->z));
-		colors.append(Color(float(p->r)/256.0,float(p->g)/256.0,float(p->b)/256.0));
+		int ind = get_color_by_map(viridis,v.length(),.17);
+		// colors.append(Color(float(p->r)/256.0,float(p->g)/256.0,float(p->b)/256.0));
+		auto c = Color(viridis[ind+1],viridis[ind+2],viridis[ind+3]);
+		colors.append(c);
 	}
 
 

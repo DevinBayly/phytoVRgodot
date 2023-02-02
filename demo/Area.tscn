@@ -5,18 +5,17 @@
 
 [sub_resource type="BoxShape" id=2]
 margin = 0.001
-extents = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="Area" type="Area"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -0.5 )
+transform = Transform( 0.365117, 0, 0, 0, 0.365117, 0, 0, 0, 0.365117, -0.182559, -0.182559, -0.182559 )
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1.01236, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.176327, 0, 0, 0, 0.176327, 0, 0, 0, 0.176327, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [connection signal="input_event" from="." to="." method="_on_Area_input_event"]
