@@ -4,7 +4,7 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var lim = 1000
+export var lim = 10
 var thread
 onready var point_class = preload("res://bin/new_nativescript.gdns")
 onready var AreaDetector = preload("res://Area.tscn")
