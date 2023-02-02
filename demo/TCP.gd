@@ -31,15 +31,23 @@ func getim():
 	print("getting image")
 	print("stream")
 	stream.put_string("ready for more")
+	var data =PoolByteArray()
+	# put in a blocking call here so we get something before next time
+	# we could make this into a thread also so the blocking doesn't affect main thread
+	var response = stream.get_data(256)
+
+	data.append_array(response[1])
 	var bytes_to_read = stream.get_available_bytes()
 	print("bytes to read were",bytes_to_read)
 	var reading = false
-	var data =PoolByteArray()
+	
+	
 	while bytes_to_read >0:
-		print("receiving ",bytes_to_read,"bytes of data")
-		var response = stream.get_data(bytes_to_read)
+		response = stream.get_data(bytes_to_read)
 
 		data.append_array(response[1])
+		print("receiving ",bytes_to_read,"bytes of data")
+		
 		bytes_to_read = stream.get_available_bytes()
 		reading = true
 	if reading:
