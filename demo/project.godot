@@ -13,6 +13,10 @@ config_version=4
 config/name="actual_cpp_native"
 config/icon="res://icon.png"
 
+[autoload]
+
+SceneTransition="*res://Scene_transition.tscn"
+
 [display]
 
 window/size/width=1920
