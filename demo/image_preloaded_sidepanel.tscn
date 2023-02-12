@@ -11,7 +11,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 
-[node name="VFlowContainer" type="VFlowContainer" parent="."]
-margin_right = 479.0
-margin_bottom = 516.0
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VFlowContainer" type="VFlowContainer" parent="ScrollContainer"]
 mouse_filter = 2

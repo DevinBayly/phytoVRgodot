@@ -19,8 +19,10 @@ func load_im(im_name):
 	# modify the path so that we get the right image
 	im.load(im_path)
 	texrect = TextureRect.new()
-	texrect.texture = im
-	add_child(texrect)
+	var texture = ImageTexture.new()
+	texture.create_from_image(im)
+	texrect.texture = texture
+	$ScrollContainer/VFlowContainer.add_child(texrect)
 	print("done adding",im_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
