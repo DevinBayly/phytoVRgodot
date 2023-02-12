@@ -14,6 +14,3 @@ MAX_SPEED = 10
 
 [node name="Area" parent="Area" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.88729, 1.19209e-07, -0.343838 )
-
-[connection signal="collided" from="head" to="." method="_on_head_collided"]
-[connection signal="exited" from="head" to="." method="_on_head_exited"]

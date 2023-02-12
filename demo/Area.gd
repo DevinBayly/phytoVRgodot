@@ -6,10 +6,10 @@ var thread
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+signal activated(pth)
 var mesh:MeshInstance
 var plant
-
+var plant_name
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mesh = $MeshInstance
@@ -27,6 +27,8 @@ func set_plant(p):
 func thread_update(val):
 	plant.point_skip = val
 func change_me():
+	print("in area about to activate, plant name is",plant_name)
+	emit_signal("activated",plant_name)
 	print(mesh)
 	print(mesh.mesh)
 	mesh.mesh.surface_set_material(0,active_mat)
@@ -54,6 +56,7 @@ func _exit_tree():
 
 func decide_action():
 	if selected:
+		
 		# this means we should load hi fidelity
 		change_me()
 	else:

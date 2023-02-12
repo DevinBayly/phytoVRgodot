@@ -61,12 +61,25 @@ func load_add_plant(pth,num=0):
 	call_deferred("add_child",pt)
 	# bring in the area and place at same locations
 	var area = AreaDetector.instance()
+	## strip out the part of the plant name that matches screenshots
+	# they usually look like
+	# /home/yara/Downloads/phyto_vr/3d_vr/3D_market_types/Butterhead/Blondine_109/final_centered.ply
+	# so we need to split on / and take the 2nd to last
+	
+	area.plant_name = pth.split("/")[-2]
+	
 	if (pt.get_child_count() > 0) :
 		var bb = pt.get_child(0).get_transformed_aabb()
 		area.translate(bb.get_center())
 		area.set_plant(pt)
 		call_deferred("add_child",area)
+		area.connect("activated",self,"trigger_side_panel")
 	
+	
+# make a function that sets the name in the sidepanel when area elements change
+func trigger_side_panel(pth):
+	$sidepanel_precreated_ims.selected_plant_name = pth
+	# this will trigger the loading within it's own scene via signal emitted on set
 	
 	
 	
