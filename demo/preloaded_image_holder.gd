@@ -5,22 +5,23 @@ extends Control
 # var a = 2
 # var b = "text"
 
-
-
 var texrect =null
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	pass # Replace with function body.
 
 # need something that will tell us which image to load
-func load_im(im_path):
+func load_im(im_name):
 	var im = Image.new()
+	# paths will look like this res://screenshots/Blondine_109_vis.png
+	var im_path = "res://screenshots/%s_vis.png"%im_name
 	# modify the path so that we get the right image
-	im.load("res://screenshots/%s_vis.png"%im_path)
+	im.load(im_path)
 	texrect = TextureRect.new()
 	texrect.texture = im
-	$VFlowContainer.add_child(texrect)
-	print("done adding")
+	add_child(texrect)
+	print("done adding",im_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
