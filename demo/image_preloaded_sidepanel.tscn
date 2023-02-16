@@ -19,5 +19,4 @@ anchor_bottom = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VFlowContainer" type="VFlowContainer" parent="ScrollContainer"]
-mouse_filter = 2
+[node name="VFlowContainer" type="HFlowContainer" parent="ScrollContainer"]

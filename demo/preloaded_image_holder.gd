@@ -6,6 +6,7 @@ extends Control
 # var b = "text"
 
 var texrect =null
+var vplayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -15,15 +16,25 @@ func _ready():
 func load_im(im_name):
 	var im = Image.new()
 	# paths will look like this res://screenshots/Blondine_109_vis.png
-	var im_path = "res://screenshots/%s_vis.png"%im_name
+	
+	vplayer = VideoPlayer.new()
+	var stream = ResourceLoader.load("res://rotating.webm")
+	vplayer.rect_size = Vector2(500,500)
+	vplayer.rect_min_size = Vector2(500,500)
+	vplayer.stream = stream
+	vplayer.autoplay=true
+	$ScrollContainer/VFlowContainer.add_child(vplayer)
 	# modify the path so that we get the right image
+	var im_path = "res://screenshots/%s_vis.png"%im_name
 	im.load(im_path)
 	texrect = TextureRect.new()
 	var texture = ImageTexture.new()
 	texture.create_from_image(im)
 	texrect.texture = texture
 	$ScrollContainer/VFlowContainer.add_child(texrect)
-	print("done adding",im_path)
+#	print("done adding im, now loading video",im_path)
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -40,5 +51,6 @@ func _on_sidepanel_precreated_ims_change_plant_name(name):
 	#doign it this way, the image will always be visible but out of view initially
 	if texrect != null:
 		texrect.queue_free()
+		vplayer.queue_free()
 	load_im(name)
 	pass # Replace with function body.
