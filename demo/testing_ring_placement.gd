@@ -18,6 +18,6 @@ func _ready():
 
 func _on_test_collision_mouse_intersect_pos(pos):
 	$ring_import.transform.origin=pos
-	print("updated position")
+
 
 	pass # Replace with function body.
