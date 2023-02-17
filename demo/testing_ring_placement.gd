@@ -15,9 +15,3 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-func _on_test_collision_mouse_intersect_pos(pos):
-	$ring_import.transform.origin=pos
-
-
-	pass # Replace with function body.

@@ -13,5 +13,3 @@ script = ExtResource( 4 )
 [node name="test_collision_mouse" parent="." instance=ExtResource( 2 )]
 
 [node name="ring_import" parent="." instance=ExtResource( 3 )]
-
-[connection signal="intersect_pos" from="test_collision_mouse" to="." method="_on_test_collision_mouse_intersect_pos"]
