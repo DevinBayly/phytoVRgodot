@@ -1,6 +1,6 @@
 #ifndef GDEXAMPLE_H
 #define GDEXAMPLE_H
-#include <string.h>
+#include <string>
 #include <Godot.hpp>
 #include <File.hpp>
 #include <vector>
