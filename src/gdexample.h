@@ -6,8 +6,6 @@
 #include <vector>
 #include <chrono>
 #include <iostream>
-// somehow this fixes the getline error encountered on windows?
-#include <string>
 #include <ResourceLoader.hpp>
 #include <Material.hpp>
 #include <fstream>
@@ -27,11 +25,12 @@ namespace godot
     private:
         float speed;
         float amplitude;
-        int point_skip;
         float time_passed;
         float time_emit;
-        bool already_rendered;
+        int point_skip;
         String file_pth;
+        MeshInstance * mesh_instance;
+        ArrayMesh * array_mesh;
 
     public:
         static void _register_methods();
@@ -44,12 +43,13 @@ namespace godot
         void _process(float delta);
         void set_speed(float p_speed);
         float get_speed();
-        void set_point_skip(int skip);
-        int get_point_skip();
         void make_cloud();
         void set_file_path(String pth);
 
+        void set_point_skip(int num);
+
         String get_file_path();
+        int get_point_skip();
     };
 }
 
