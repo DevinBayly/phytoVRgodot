@@ -3,7 +3,11 @@
 *.import
 *.json
 *.dblite
+*.tif
 *.so
 *.os
 godot-headers
 *.sw*
+*addons
+*avi
+*webm
