@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://first_person.tscn" type="PackedScene" id=1]
+[ext_resource path="res://video_viewports.tscn" type="PackedScene" id=2]
+
+[node name="test_intro_2" type="Spatial"]
+
+[node name="head" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.335, 0 )
+
+[node name="video_viewports" parent="." instance=ExtResource( 2 )]
