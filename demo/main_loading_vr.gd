@@ -6,11 +6,17 @@ extends Spatial
 # var b = "text"
 export var lim = 10
 var thread
+var holder
+var person
+var ring
 onready var point_class = preload("res://bin/new_nativescript.gdns")
 onready var AreaDetector = preload("res://Area.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	thread = Thread.new()
+	holder = $plant_holder
+	person = $OVRFirstPerson
+	ring = $test_collision_mouse/ring_import
 	thread.start(self,"load_from_json","./drive_lettuce.json")
 func load_from_folder():
 	var dir = Directory.new()
@@ -58,7 +64,7 @@ func load_add_plant(pth,num=0):
 	
 	pt.point_skip = 20
 	pt.translate(offset*.5)
-	call_deferred("add_child",pt)
+	holder.call_deferred("add_child",pt)
 	# bring in the area and place at same locations
 	var area = AreaDetector.instance()
 	## strip out the part of the plant name that matches screenshots
@@ -72,13 +78,14 @@ func load_add_plant(pth,num=0):
 		var bb = pt.get_child(0).get_transformed_aabb()
 		area.translate(bb.get_center())
 		area.set_plant(pt)
-		call_deferred("add_child",area)
+		holder.call_deferred("add_child",area)
 		area.connect("activated",self,"trigger_side_panel")
 	
 	
 # make a function that sets the name in the sidepanel when area elements change
 func trigger_side_panel(pth):
-	$sidepanel_precreated_ims.selected_plant_name = pth
+	pass
+#	$sidepanel_precreated_ims.selected_plant_name = pth
 	# this will trigger the loading within it's own scene via signal emitted on set
 	
 	
@@ -90,3 +97,52 @@ func trigger_side_panel(pth):
 
 func _exit_tree():
 	thread.wait_to_finish()
+
+var last_collided
+func _on_OVRFirstPerson_handRayCollided(ob):
+	last_collided = ob
+	if "plant_area" in last_collided:
+		# consider highlighting the plant area box temporarily
+		last_collided.reveal_mesh()
+	
+	
+	pass # Replace with function body.
+
+
+func _on_OVRFirstPerson_handRayExited(ob):
+	if "plant_area" in last_collided:
+		# consider highlighting the plant area box temporarily
+		ob.hide_mesh()
+	if "gui_area" in last_collided:
+		last_collided.last_ray_pos =0
+	pass # Replace with function body.
+
+
+func _on_OVRFirstPerson_handRayPoint(pos):
+	# move the test collision mesh mark to the intersection of the ray and the object
+	if "gui_area" in last_collided:
+
+		# this is where we want to transmit the position to the window
+		last_collided.update_scroll(pos.y)
+	else:
+		ring.transform.origin = pos
+	
+	pass # Replace with function body.
+
+
+func _on_OVRFirstPerson_handSelected():
+	if "plant_area" in last_collided:
+		# trigger the point upsampling and such
+		last_collided.external_selected()
+	pass # Replace with function body.
+
+
+func _on_OVRFirstPerson_handTrigger():
+	# now want to move the plant_holder in the reverse direction so we never completely get out of teleporting option range
+	# person - ring transform
+	var movement_vec = person.transform.origin - ring.transform.origin
+	movement_vec.y = 0
+	var norm_move = movement_vec.normalized()
+	$plant_holder.translate(norm_move)
+#		person.transform.origin = current_pos
+	pass # Replace with function body.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Area.gd" type="Script" id=1]
+[ext_resource path="res://active.tres" type="Material" id=2]
 [ext_resource path="res://wirebox.tres" type="ArrayMesh" id=3]
 
 [sub_resource type="BoxShape" id=2]
@@ -13,6 +14,7 @@ script = ExtResource( 1 )
 transform = Transform( 0.365117, 0, 0, 0, 0.365117, 0, 0, 0, 0.365117, -0.182559, -0.182559, -0.182559 )
 mesh = ExtResource( 3 )
 skeleton = NodePath("../..")
+material/0 = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.176327, 0, 0, 0, 0.176327, 0, 0, 0, 0.176327, 0, 0, 0 )

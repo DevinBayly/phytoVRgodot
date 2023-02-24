@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://main_loading_vr.gd" type="Script" id=1]
+[ext_resource path="res://main_vr_firstperson.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Camera.gd" type="Script" id=3]
+[ext_resource path="res://scrollview.tscn" type="PackedScene" id=4]
+[ext_resource path="res://test_collision_mouse.tscn" type="PackedScene" id=5]
+
+[node name="manual_loading" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="plant_holder" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="scrollview" parent="plant_holder" instance=ExtResource( 4 )]
+transform = Transform( -0.95878, 0, 0.284149, 0, 1, 0, -0.284149, 0, -0.95878, -1.52999, 2.38419e-07, 1.99598 )
+
+[node name="test_collision_mouse" parent="." instance=ExtResource( 5 )]
+
+[node name="OVRFirstPerson" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.822799, 0, -0.568332, 0, 1, 0, 0.568332, 0, -0.822799, -0.570871, -0.606944, -3.21206 )
+
+[connection signal="handRayCollided" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayCollided"]
+[connection signal="handRayExited" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayExited"]
+[connection signal="handRayPoint" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayPoint"]
+[connection signal="handSelected" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handSelected"]
+[connection signal="handTrigger" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handTrigger"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://first_person.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scrollview.tscn" type="PackedScene" id=2]
+[ext_resource path="res://test_scroll_view.gd" type="Script" id=3]
+
+[node name="test_scroll_view" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="head" parent="." instance=ExtResource( 1 )]
+
+[node name="scrollview" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 21.0
+margin_top = 13.0
+margin_right = 234.0
+margin_bottom = 112.0
+text = "increase scroll"
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 25.0
+margin_top = 109.0
+margin_right = 238.0
+margin_bottom = 208.0
+text = "increase scroll"
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

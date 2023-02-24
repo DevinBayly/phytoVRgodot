@@ -10,10 +10,11 @@ signal activated(pth)
 var mesh:MeshInstance
 var plant
 var plant_name
+const plant_area = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mesh = $MeshInstance
-	
+	mesh.visible = false
 	thread = Thread.new()
 	pass # Replace with function body.
 
@@ -31,7 +32,7 @@ func change_me():
 	emit_signal("activated",plant_name)
 	print(mesh)
 	print(mesh.mesh)
-	mesh.mesh.surface_set_material(0,active_mat)
+	mesh.visible= true
 	print("getting changed")
 	print("plant has been set to ",plant)
 
@@ -39,11 +40,15 @@ func change_me():
 		thread.wait_to_finish()
 	thread.start(self,"thread_update",1)
 	
-	
+func reveal_mesh():
+	mesh.visible = true
+func hide_mesh():
+	mesh.visible = false
 func left_me():
 	print(mesh)
 	print(mesh.mesh)
-	mesh.mesh.surface_set_material(0,inactive_mat)
+	mesh.visible = false
+
 	print("gaze has exited")
 	print("plant has been set to ",plant)
 
@@ -63,6 +68,9 @@ func decide_action():
 		left_me()
 
 var selected = false
+func external_selected():
+	selected = !selected
+	decide_action()
 func _on_Area_input_event(camera, event:InputEvent, position, normal, shape_idx):
 	if event is InputEventMouseButton:
 		if event.doubleclick:
