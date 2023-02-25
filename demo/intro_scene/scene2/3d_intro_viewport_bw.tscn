@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://intro_scene/scene2/black_white_plants.tscn" type="PackedScene" id=1]
+[ext_resource path="res://intro_scene/scene2/3d_intro_viewport.tscn" type="PackedScene" id=2]
+
+[node name="3d_intro_viewport_bw" instance=ExtResource( 2 )]
+
+[node name="black_white_plants" parent="Viewport" index="0" instance=ExtResource( 1 )]

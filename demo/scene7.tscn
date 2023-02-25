@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://audio/test_recordings-08.ogg" type="AudioStream" id=1]
-[ext_resource path="res://scene7.gd" type="Script" id=2]
+[ext_resource path="res://scene_basic_behavior.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "audio"
@@ -25,10 +25,8 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
-autoplay = "audio"
 anims/audio = SubResource( 1 )
 
 [connection signal="animation_finished" from="AudioStreamPlayer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

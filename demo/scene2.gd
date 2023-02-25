@@ -17,5 +17,5 @@ func _ready():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	SceneTransition.change_the_scene("res://scene3.tscn")
+	#SceneTransition.change_the_scene("res://scene3.tscn")
 	pass # Replace with function body.

@@ -5,9 +5,11 @@ signal finished
 # var a = 2
 # var b = "text"
 
+var anim
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anim = $AudioStreamPlayer/AnimationPlayer
 	pass # Replace with function body.
 
 

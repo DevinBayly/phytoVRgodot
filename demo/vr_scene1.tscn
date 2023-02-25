@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scene1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://main_vr_firstperson.tscn" type="PackedScene" id=2]
+
+[node name="vr_scene1" type="Spatial"]
+
+[node name="OVRFirstPerson" parent="." instance=ExtResource( 2 )]
+
+[node name="scene1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 18.7488, 0, 0, 0, 18.7488, 0, 0, 0, 18.7488, 0, 2, 0 )

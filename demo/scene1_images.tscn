@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://intro_scene/scene1/first_im.tscn" type="PackedScene" id=1]
+[ext_resource path="res://second_im.tscn" type="PackedScene" id=2]
+[ext_resource path="res://intro_scene/scene1/third_image.tscn" type="PackedScene" id=3]
+[ext_resource path="res://intro_scene/scene1/fifth_image.tscn" type="PackedScene" id=4]
+[ext_resource path="res://intro_scene/scene1/fourth_image.tscn" type="PackedScene" id=5]
+
+[node name="scene1_images" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 0.28842, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="first_im" parent="." instance=ExtResource( 1 )]
+
+[node name="3d_intro_viewport_static" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0, 0, 0 )
+
+[node name="third_image" parent="." instance=ExtResource( 3 )]
+transform = Transform( -0.484565, 0, -0.874755, 0, 1, 0, 0.874755, 0, -0.484565, 0, 0.0107677, 0 )
+
+[node name="fifth_image" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.99889, 0, -0.0471064, 0, 1, 0, 0.0471064, 0, -0.99889, 0, 0, 0 )
+
+[node name="fourth_image" parent="." instance=ExtResource( 5 )]
+transform = Transform( -0.538138, 0, 0.842857, 0, 1, 0, -0.842857, 0, -0.538138, 0, 0, 0 )

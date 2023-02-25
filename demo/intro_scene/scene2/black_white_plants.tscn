@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://videos/intro_vids/0049-0515.ogv" type="VideoStream" id=1]
+
+[node name="black_white_plants" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VideoPlayer" type="VideoPlayer" parent="AspectRatioContainer"]
+margin_right = 1920.0
+margin_bottom = 1088.0
+stream = ExtResource( 1 )
+autoplay = true
+expand = false
