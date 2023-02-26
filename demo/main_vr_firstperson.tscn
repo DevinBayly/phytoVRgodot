@@ -4,6 +4,7 @@
 [ext_resource path="res://addons/godot-openvr/scenes/ovr_controller.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-openvr/scenes/ovr_main.gd" type="Script" id=3]
 [ext_resource path="res://RayCast.gd" type="Script" id=4]
+[ext_resource path="res://3d_assets/line.tres" type="ArrayMesh" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
@@ -24,10 +25,8 @@ func _physics_process(delta):
 		# we're looking straight up or down, ignore this
 		pass"
 
-[sub_resource type="CylinderMesh" id=2]
-
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.129412, 0.815686, 0.784314, 0.682353 )
+albedo_color = Color( 0.815686, 0.129412, 0.129412, 0.682353 )
 
 [node name="OVRFirstPerson" type="ARVROrigin"]
 script = ExtResource( 3 )
@@ -55,8 +54,8 @@ collide_with_bodies = false
 script = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Left_Hand"]
-transform = Transform( 0.0364559, 0, 0, 0, -4.09786e-08, 0.0293263, 0, -2.59022, -3.54181e-09, 0, 0, -2.60207 )
-mesh = SubResource( 2 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -5.99189, 0, -2.61914e-07, 2.98023e-08, 0, 0 )
+mesh = ExtResource( 5 )
 material/0 = SubResource( 3 )
 
 [connection signal="selected" from="Left_Hand" to="." method="_on_Left_Hand_selected"]
