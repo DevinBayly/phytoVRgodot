@@ -13,7 +13,7 @@ var scene_paths =[
 	"scene4.tscn",
 	"scene5.tscn",
 	"scene6.tscn",
-	"scene7.tscn"
+	"scene7_end.tscn"
 ]
 var scene
 var scene_index=0
@@ -44,6 +44,8 @@ func start_transition():
 	# now we switch the scene and fade back in, don't forget to connect up the finished signal to the function we are in
 	scene.queue_free()
 	load_scene()
+	## NOTE THAT ON CERTAIN SCENES WE NEED TO FORCE CONNECT UP THE SIGNALS FROM THE VR TO THE SCENE SO THE RIGHT
+	## BEHAVIOR HAPPENS AFTER
 	
 	# make sure not to start playing the scene too early while the fade is out
 	SceneTransition.fade_in()

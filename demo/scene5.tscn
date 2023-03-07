@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://audio/test_recordings-06.ogg" type="AudioStream" id=1]
-[ext_resource path="res://scene_basic_behavior.gd" type="Script" id=2]
+[ext_resource path="res://audio/visualization_panel.wav" type="AudioStream" id=1]
+[ext_resource path="res://scene5_parent_behavior.gd" type="Script" id=2]
+[ext_resource path="res://main_reactor_scene6.gd" type="Script" id=3]
+[ext_resource path="res://main_vr_firstperson.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "audio"
@@ -25,8 +27,33 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
 anims/audio = SubResource( 1 )
 
+[node name="main_reactor_scene_5" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="Latin Aido_95" type="Spatial" parent="main_reactor_scene_5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.928181, -5.96047e-08, -0.00289442 )
+
+[node name="Cos Green_Towers_98" type="Spatial" parent="main_reactor_scene_5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522105, 0, 0.535652 )
+
+[node name="Butterhead Blondine_109" type="Spatial" parent="main_reactor_scene_5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.502501, 0, 0.597449 )
+
+[node name="Crisp Angie_110" type="Spatial" parent="main_reactor_scene_5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0140522, 0, 0.0115859 )
+
+[node name="Cutting Ruby_239" type="Spatial" parent="main_reactor_scene_5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.873551, 0, -0.0171053 )
+
+[node name="OVRFirstPerson" parent="." instance=ExtResource( 4 )]
+
 [connection signal="animation_finished" from="AudioStreamPlayer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="handRayCollided" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayCollided"]
+[connection signal="handRayExited" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayExited"]
+[connection signal="handRayPoint" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayPoint"]
+[connection signal="handSelected" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handSelected"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://audio/test_recordings-01.ogg" type="AudioStream" id=1]
+[ext_resource path="res://audio/intro_text.wav" type="AudioStream" id=1]
 [ext_resource path="res://scene_basic_behavior.gd" type="Script" id=2]
 [ext_resource path="res://scene1_images.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main_vr_firstperson.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "audio"
@@ -26,11 +27,14 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
 autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
 anims/audio = SubResource( 1 )
 
 [node name="scene1_images" parent="." instance=ExtResource( 3 )]
+
+[node name="OVRFirstPerson" parent="." instance=ExtResource( 4 )]
 
 [connection signal="animation_finished" from="AudioStreamPlayer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

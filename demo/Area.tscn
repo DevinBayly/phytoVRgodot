@@ -20,4 +20,7 @@ material/0 = ExtResource( 2 )
 transform = Transform( 0.176327, 0, 0, 0, 0.176327, 0, 0, 0, 0.176327, 0, 0, 0 )
 shape = SubResource( 2 )
 
+[node name="data_panel_holder" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.187029, 0.177946, -0.184973 )
+
 [connection signal="input_event" from="." to="." method="_on_Area_input_event"]

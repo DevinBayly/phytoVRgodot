@@ -2,6 +2,7 @@ extends Area
 
 onready var active_mat = preload("res://active.tres")
 onready var inactive_mat = preload("res://inactive.tres")
+onready var scrollViewport = preload("res://scrollview.tscn")
 var thread
 # Declare member variables here. Examples:
 # var a = 2
@@ -10,6 +11,7 @@ signal activated(pth)
 var mesh:MeshInstance
 var plant
 var plant_name
+onready var panel_holder =$data_panel_holder
 const plant_area = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,6 +41,9 @@ func change_me():
 	if thread.is_active():
 		thread.wait_to_finish()
 	thread.start(self,"thread_update",1)
+	show_panel_in_holder()
+	var viewport = scrollViewport.instance()
+	panel_holder.add_child(viewport)
 	
 func reveal_mesh():
 	mesh.visible = true
@@ -55,6 +60,9 @@ func left_me():
 	if thread.is_active():
 		thread.wait_to_finish()
 	thread.start(self,"thread_update",300)
+	hide_panel_in_holder()
+	panel_holder.get_child(0).queue_free()
+	
 func _exit_tree():
 	if thread.is_active():
 		thread.wait_to_finish()
@@ -66,6 +74,13 @@ func decide_action():
 		change_me()
 	else:
 		left_me()
+
+func show_panel_in_holder():
+	panel_holder.visible = true
+	
+func hide_panel_in_holder():
+	panel_holder.visible = false
+	
 
 var selected = false
 func external_selected():
