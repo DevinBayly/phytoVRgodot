@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://renders/Aido_83_timeseries.ogv" type="VideoStream" id=1]
+[ext_resource path="res://intro_scene/scene2/3d_intro_viewport.tscn" type="PackedScene" id=2]
+
+[sub_resource type="ViewportTexture" id=1]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
+params_cull_mode = 2
+albedo_texture = SubResource( 1 )
+
+[node name="3d_intro_viewport_bw" instance=ExtResource( 2 )]
+
+[node name="black_white_plants" type="Control" parent="Viewport" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Viewport/black_white_plants" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VideoPlayer" type="VideoPlayer" parent="Viewport/black_white_plants/AspectRatioContainer" index="0"]
+margin_right = 1920.0
+margin_bottom = 1088.0
+stream = ExtResource( 1 )
+autoplay = true
+expand = false
+
+[node name="MeshInstance" parent="." index="1"]
+material/0 = SubResource( 2 )

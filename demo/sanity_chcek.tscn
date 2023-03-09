@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="sanity_chcek" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+ratio = 1.7778
+
+[node name="VideoPlayer" type="VideoPlayer" parent="AspectRatioContainer"]
+margin_left = -6.10352e-05
+margin_top = 0.00671387
+margin_right = 1920.0
+margin_bottom = 1079.99
+autoplay = true

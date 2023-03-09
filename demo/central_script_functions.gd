@@ -4,11 +4,12 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var lim = 10
+export var lim = 700
 var thread = null
 var holder = null
 var person = null
 var ring = null
+var run_type = "intro"
 onready var point_class = preload("res://bin/new_nativescript.gdns")
 onready var AreaDetector = preload("res://Area.tscn")
 # Called when the node enters the scene tree for the first time.
@@ -20,8 +21,9 @@ func full_scene_setup():
 	thread = Thread.new()
 	holder = $plant_holder
 	ring = $test_collision_mouse/ring_import
-	load_from_json("./drive_lettuce.json")
-	#thread.start(self,"load_from_json","./drive_lettuce.json")
+	#load_from_json("./20_wrap_model.json")
+	run_type = "main"
+	thread.start(self,"load_from_json","./20_wrap_model.json")
 
 func load_from_folder():
 	var dir = Directory.new()
@@ -54,30 +56,36 @@ func load_from_json(jpth):
 	for e in json_res.result:
 		number_loaded+=1
 		#print(e.path)
-		load_add_plant(e.path,number_loaded)
+		load_add_plant(e.pth,e.x,e.y)
+		#load_add_plant(e.path,number_loaded)
 		lim -=1
 		if lim <0:
 			break
 
+	
 
-func load_add_plant(pth,num=0):
+func load_add_plant(pth,x=0,z=0):
 	print("loading",pth)
 	
 	# figure out a translation to apply given the num we are on with mod and floor
-	var offset = Vector3(num%5,0,floor(num/5))
+
 	var created_elements = make_pt_area(pth)
 	var area = created_elements[0]
 	var pt = created_elements[1]
 
 	holder.call_deferred("add_child",pt)
 	yield(pt.get_child(0),"tree_entered")
-	pt.translate(offset*.5)
+
+	pt.translate(Vector3(x,0,z))
+
 	var bb = pt.get_child(0).get_transformed_aabb()
 	print(bb.get_center())
 	area.translate(bb.get_center())
+	
 
 	holder.call_deferred("add_child",area)
 	area.connect("activated",self,"trigger_side_panel")
+	return [area,pt]
 
 
 func make_pt_area(pth,skip=20):
@@ -93,9 +101,10 @@ func make_pt_area(pth,skip=20):
 	# they usually look like
 	# /home/yara/Downloads/phyto_vr/3d_vr/3D_market_types/Butterhead/Blondine_109/final_centered.ply
 	# so we need to split on / and take the 2nd to last
+	var raw_name = pth.split("/")[-2]
 	
-	area.plant_name = pth.split("/")[-2]
-	
+	area.plant_name = raw_name.replace("_timeseries","")
+	area.run_type = run_type
 	if (pt.get_child_count() > 0) :
 		
 		area.set_plant(pt)

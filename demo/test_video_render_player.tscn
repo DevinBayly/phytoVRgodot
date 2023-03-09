@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://video_render_player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://first_person.tscn" type="PackedScene" id=2]
+[ext_resource path="res://renders/Amplus_47_timeseries.ogv" type="VideoStream" id=3]
 
 [node name="test_video_render_player" type="Spatial"]
 
 [node name="video_render_player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+vid = ExtResource( 3 )
 
 [node name="head" parent="." instance=ExtResource( 2 )]

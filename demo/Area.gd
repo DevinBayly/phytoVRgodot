@@ -11,6 +11,7 @@ signal activated(pth)
 var mesh:MeshInstance
 var plant
 var plant_name
+var run_type = "demo"
 onready var panel_holder =$data_panel_holder
 const plant_area = true
 # Called when the node enters the scene tree for the first time.
@@ -43,8 +44,18 @@ func change_me():
 	thread.start(self,"thread_update",1)
 	show_panel_in_holder()
 	var viewport = scrollViewport.instance()
-	viewport.texture = ResourceLoader.load("screenshots/%s_vis.png"%plant_name)
+	var image_folder
+	var vid_folder
+	if run_type =="demo":
+		image_folder = "screenshots"
+		vid_folder = null
+	else:
+		image_folder = "vis_panel_images"
+		vid_folder = "renders"
+	viewport.texture = ResourceLoader.load("%s/%s_vis.png"%[image_folder,plant_name])
 	panel_holder.add_child(viewport)
+	viewport.set_video("%s/%s_timeseries.ogv"%[vid_folder,plant_name])
+	viewport.play_video()
 	
 func reveal_mesh():
 	mesh.visible = true
