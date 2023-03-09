@@ -1,15 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scene_basic_behavior.gd" type="Script" id=1]
+[ext_resource path="res://scene3_parent_behavior.gd" type="Script" id=1]
 [ext_resource path="res://audio/new_approach.wav" type="AudioStream" id=2]
 [ext_resource path="res://intro_interact_plant.gd" type="Script" id=3]
-[ext_resource path="res://Green_Towers_98.tres" type="ArrayMesh" id=4]
-[ext_resource path="res://Ruby_239.tres" type="ArrayMesh" id=5]
-[ext_resource path="res://Angie_110.tres" type="ArrayMesh" id=6]
-[ext_resource path="res://Blondine_109.tres" type="ArrayMesh" id=7]
-[ext_resource path="res://Aido_95.tres" type="ArrayMesh" id=8]
-[ext_resource path="res://active.tres" type="Material" id=9]
-[ext_resource path="res://wirebox.tres" type="ArrayMesh" id=10]
+[ext_resource path="res://main_reactor_scene3.gd" type="Script" id=4]
 [ext_resource path="res://main_vr_firstperson.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Animation" id=1]
@@ -39,69 +33,31 @@ stream = ExtResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AudioStreamPlayer"]
 anims/audio = SubResource( 1 )
 
-[node name="Aido_95" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.772886, 5.96046e-08, -0.262406 )
-mesh = ExtResource( 8 )
-skeleton = NodePath("")
-script = ExtResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Aido_95"]
-transform = Transform( 0.295288, 0, 0, 0, 0.295288, 0, 0, 0, 0.295288, -0.162212, -0.124846, -0.163278 )
-visible = false
-mesh = ExtResource( 10 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 9 )
-
-[node name="Green_Towers_98" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522105, 0, 0.535652 )
-mesh = ExtResource( 4 )
-skeleton = NodePath("../Blondine_109")
-script = ExtResource( 3 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="Green_Towers_98"]
-transform = Transform( 0.295288, 0, 0, 0, 0.295288, 0, 0, 0, 0.295288, -0.147796, -0.11333, -0.151011 )
-visible = false
-mesh = ExtResource( 10 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 9 )
-
-[node name="Blondine_109" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.502501, 0, 0.597449 )
-mesh = ExtResource( 7 )
-skeleton = NodePath("../Angie_110")
-script = ExtResource( 3 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="Blondine_109"]
-transform = Transform( 0.295288, 0, 0, 0, 0.295288, 0, 0, 0, 0.295288, -0.147796, -0.11333, -0.151011 )
-visible = false
-mesh = ExtResource( 10 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 9 )
-
-[node name="Angie_110" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0576787, 0, -0.777091 )
-mesh = ExtResource( 6 )
-script = ExtResource( 3 )
-
-[node name="MeshInstance4" type="MeshInstance" parent="Angie_110"]
-transform = Transform( 0.295288, 0, 0, 0, 0.295288, 0, 0, 0, 0.295288, -0.147796, -0.11333, -0.151011 )
-visible = false
-mesh = ExtResource( 10 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 9 )
-
-[node name="Ruby_239" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.748551, 0, -0.381715 )
-mesh = ExtResource( 5 )
-script = ExtResource( 3 )
-
-[node name="MeshInstance5" type="MeshInstance" parent="Ruby_239"]
-transform = Transform( 0.295288, 0, 0, 0, 0.295288, 0, 0, 0, 0.295288, -0.147796, -0.11333, -0.151011 )
-visible = false
-mesh = ExtResource( 10 )
-skeleton = NodePath("../..")
-material/0 = ExtResource( 9 )
-
 [node name="OVRFirstPerson" parent="." instance=ExtResource( 11 )]
 
+[node name="main_reactor" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="Latin Aido_95" type="Spatial" parent="main_reactor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.772886, 5.96046e-08, -0.262406 )
+script = ExtResource( 3 )
+
+[node name="Cos Green_Towers_98" type="Spatial" parent="main_reactor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.522105, 0, 0.535652 )
+script = ExtResource( 3 )
+
+[node name="Butterhead Blondine_109" type="Spatial" parent="main_reactor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.502501, 0, 0.597449 )
+script = ExtResource( 3 )
+
+[node name="Crisp Angie_110" type="Spatial" parent="main_reactor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0576787, 0, -0.777091 )
+script = ExtResource( 3 )
+
+[node name="Cutting Ruby_239" type="Spatial" parent="main_reactor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.748551, 0, -0.381715 )
+script = ExtResource( 3 )
+
 [connection signal="animation_finished" from="AudioStreamPlayer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="handRayCollided" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayCollided"]
+[connection signal="handRayExited" from="OVRFirstPerson" to="." method="_on_OVRFirstPerson_handRayExited"]

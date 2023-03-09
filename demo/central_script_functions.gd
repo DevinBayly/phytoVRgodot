@@ -15,13 +15,14 @@ onready var AreaDetector = preload("res://Area.tscn")
 func _ready():
 	pass
 	
-	
+
 func full_scene_setup():
 	thread = Thread.new()
 	holder = $plant_holder
-	person = $OVRFirstPerson
 	ring = $test_collision_mouse/ring_import
-	thread.start(self,"load_from_json","./drive_lettuce.json")
+	load_from_json("./drive_lettuce.json")
+	#thread.start(self,"load_from_json","./drive_lettuce.json")
+
 func load_from_folder():
 	var dir = Directory.new()
 	var path = "./plants"
@@ -67,20 +68,23 @@ func load_add_plant(pth,num=0):
 	var created_elements = make_pt_area(pth)
 	var area = created_elements[0]
 	var pt = created_elements[1]
-	if (pt.get_child_count() > 0) :
-		pt.translate(offset*.5)
-		var bb = pt.get_child(0).get_transformed_aabb()
-		area.translate(bb.get_center())
-		holder.call_deferred("add_child",area)
-		holder.call_deferred("add_child",pt)
-		area.connect("activated",self,"trigger_side_panel")
+
+	holder.call_deferred("add_child",pt)
+	yield(pt.get_child(0),"tree_entered")
+	pt.translate(offset*.5)
+	var bb = pt.get_child(0).get_transformed_aabb()
+	print(bb.get_center())
+	area.translate(bb.get_center())
+
+	holder.call_deferred("add_child",area)
+	area.connect("activated",self,"trigger_side_panel")
 
 
-func make_pt_area(pth):
+func make_pt_area(pth,skip=20):
 	var pt = point_class.new()
 	pt.file_pth =pth
 	
-	pt.point_skip = 20
+	pt.point_skip = skip
 	
 	
 	# bring in the area and place at same locations
@@ -130,8 +134,12 @@ func _on_OVRFirstPerson_handRayCollided(ob):
 
 func _on_OVRFirstPerson_handRayExited(ob):
 	if "plant_area" in last_collided:
+		if ob == null:
+			return
 		# consider highlighting the plant area box temporarily
-		ob.hide_mesh()
+		if "plant_area" in ob:
+			ob.hide_mesh()
+
 	if "gui_area" in last_collided:
 		last_collided.last_ray_pos =0
 	pass # Replace with function body.
@@ -160,8 +168,15 @@ func _on_OVRFirstPerson_handSelected():
 func _on_OVRFirstPerson_handTrigger():
 	# now want to move the plant_holder in the reverse direction so we never completely get out of teleporting option range
 	# person - ring transform
-	var movement_vec = person.transform.origin - ring.transform.origin
+	var start = ring.global_transform.origin 
+	print("ring at",start)
+	var end = person.global_transform.origin
+	print("camera at",end)
+	
+	var movement_vec = end-start
+
 	movement_vec.y = 0
+	print("movement towards",movement_vec)
 	var norm_move = movement_vec.normalized()
 	holder.translate(norm_move)
 #		person.transform.origin = current_pos

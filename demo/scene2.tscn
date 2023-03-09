@@ -33,6 +33,7 @@ stream = ExtResource( 1 )
 anims/audio = SubResource( 1 )
 
 [node name="video_viewports" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1.52004, 0, 0.0103202, 0, 1.52008, 0, -0.0103202, 0, 1.52004, -0.184782, 0.557028, -0.984004 )
 
 [node name="OVRFirstPerson" parent="." instance=ExtResource( 4 )]
 

@@ -29,6 +29,7 @@ func _physics_process(delta):
 albedo_color = Color( 0.815686, 0.129412, 0.129412, 0.682353 )
 
 [node name="OVRFirstPerson" type="ARVROrigin"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.607, 0 )
 script = ExtResource( 3 )
 
 [node name="ARVRCamera" type="ARVRCamera" parent="."]
@@ -76,11 +77,13 @@ mesh = ExtResource( 5 )
 skeleton = NodePath("")
 material/0 = SubResource( 3 )
 
+[connection signal="controller_activated" from="Right_Hand" to="." method="_on_Right_Hand_controller_activated"]
 [connection signal="selected" from="Right_Hand" to="." method="_on_Right_Hand_selected"]
 [connection signal="triggered" from="Right_Hand" to="." method="_on_Right_Hand_triggered"]
 [connection signal="collided" from="Right_Hand/RayCast" to="." method="_on_RayCast_collided"]
 [connection signal="collisionPosition" from="Right_Hand/RayCast" to="." method="_on_RayCast_collisionPosition"]
 [connection signal="exited" from="Right_Hand/RayCast" to="." method="_on_RayCast_exited"]
+[connection signal="controller_activated" from="Left_Hand" to="." method="_on_Left_Hand_controller_activated"]
 [connection signal="selected" from="Left_Hand" to="." method="_on_Left_Hand_selected"]
 [connection signal="triggered" from="Left_Hand" to="." method="_on_Left_Hand_triggered"]
 [connection signal="collided" from="Left_Hand/RayCast" to="." method="_on_RayCast_collided"]

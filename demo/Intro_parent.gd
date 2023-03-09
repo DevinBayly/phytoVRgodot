@@ -25,6 +25,7 @@ func _ready():
 	scene.anim.play("audio")
 	pass # Replace with function body.
 func load_scene():
+	print("scene index is",scene_index)
 	var scene_res = ResourceLoader.load(scene_paths[scene_index])
 	scene = scene_res.instance()
 	add_child(scene)

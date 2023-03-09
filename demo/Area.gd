@@ -43,6 +43,7 @@ func change_me():
 	thread.start(self,"thread_update",1)
 	show_panel_in_holder()
 	var viewport = scrollViewport.instance()
+	viewport.texture = ResourceLoader.load("screenshots/%s_vis.png"%plant_name)
 	panel_holder.add_child(viewport)
 	
 func reveal_mesh():

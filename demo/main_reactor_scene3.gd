@@ -11,7 +11,7 @@ func _ready():
 	thread = Thread.new()
 	# in theory we could still path to these, without being their parent. might still work
 	thread.start(self,"create_plants")
-	ring = $"../test_collision_mouse/ring_import"
+	
 	holder = self
 	## set up signals to the vr so that things happen the way they are supposed to
 	# check if we can find a headset  node that emits the things that 
@@ -29,10 +29,14 @@ func create_plants():
 		var group = pname.split(" ")[0]
 		var individual = pname.split(" ")[1]
 		# get back an area and a ply pt generated ob
-		var created_elements = make_pt_area("3d_vr/3D_market_types/%s/%s/final_centered.ply"%[group,individual])
+		var created_elements = make_pt_area("3d_vr/3D_market_types/%s/%s/final_centered.ply"%[group,individual],1)
+		
+		var area = created_elements[0]
+		area.plant_name = individual
 		print("created elements are",created_elements)
 		#  move them to the locations of the spatials
-		# well really, just remove the translate on both, and then parent to the 
+		# well really, just remove the translate on both, and then parent to the
+		 
 		child.call_deferred("add_child",created_elements[0])
 		child.call_deferred("add_child",created_elements[1])
 		print("added to ",child)

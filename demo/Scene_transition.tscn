@@ -36,6 +36,7 @@ tracks/0/keys = {
 }
 
 [node name="Scene_transition" type="CanvasLayer"]
+follow_viewport_enable = true
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
