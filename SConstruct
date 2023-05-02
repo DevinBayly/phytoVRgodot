@@ -1,42 +1,10 @@
-#!python
+#!/usr/bin/env python
 import os
 import sys
-opts = Variables([], ARGUMENTS)
-if sys.platform.startswith("linux"):
-    host_platform = "linux"
-elif sys.platform.startswith("freebsd"):
-    host_platform = "freebsd"
-elif sys.platform == "darwin":
-    host_platform = "osx"
-elif sys.platform == "win32" or sys.platform == "msys":
-    host_platform = "windows"
-else:
-    raise ValueError("Could not detect platform automatically, please specify with platform=<platform>")
 
+env = SConscript("godot-cpp/SConstruct")
 
-# Define our options
-opts.Add(EnumVariable('target', "Compilation target", 'debug', ['d', 'debug', 'r', 'release']))
-opts.Add(EnumVariable('platform', "Compilation platform", '', ['', 'windows', 'x11', 'linux', 'osx']))
-opts.Add(EnumVariable('p', "Compilation target, alias for 'platform'", '', ['', 'windows', 'x11', 'linux', 'osx']))
-opts.Add(BoolVariable('use_llvm', "Use the LLVM / Clang compiler", 'no'))
-opts.Add(PathVariable('target_path', 'The path where the lib is installed.', 'demo/bin/'))
-opts.Add(PathVariable('target_name', 'The library name.', 'libgdexample', PathVariable.PathAccept))
-
-# Local dependency paths, adapt them to your setup
-godot_headers_path = "godot-cpp/godot-headers/"
-cpp_bindings_path = "godot-cpp/"
-cpp_library = "libgodot-cpp"
-
-# only support 64 at this time..
-bits = 64
-
-# Gets the standard flags CC, CCX, etc.
-env = Environment(TARGET_ARCH="amd64")
-# Updates the environment with the option variables.
-opts.Update(env)
-
-
-# For the reference:
+# For reference:
 # - CCFLAGS are compilation flags shared between C and C++
 # - CFLAGS are for C-specific compilation flags
 # - CXXFLAGS are for C++-specific compilation flags
@@ -44,45 +12,21 @@ opts.Update(env)
 # - CPPDEFINES are for pre-processor defines
 # - LINKFLAGS are for linking flags
 
-env['target_path'] += 'win64/'
-cpp_library += '.windows'
-# This makes sure to keep the session environment variables on windows,
-# that way you can run scons in a vs 2017 prompt and it will find all the required tools
-# env.Append(ENV=os.environ)
-
-env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
-env.Append(CCFLAGS=['-W3', '-GRa','/std:c++14'])
-env.Append(CXXFLAGS='/std:c++14')
-if env['target'] in ('debug', 'd'):
-    env.Append(CPPDEFINES=['_DEBUG'])
-    env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
-    env.Append(LINKFLAGS=['-DEBUG'])
-else:
-    env.Append(CPPDEFINES=['NDEBUG'])
-    env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
-
-if env['target'] in ('debug', 'd'):
-    cpp_library += '.debug'
-else:
-    cpp_library += '.release'
-
-env_dump = env.Dump()
-print("dumping environment,",env_dump)
-cpp_library += '.' + str(bits)
-
-# make sure our binding library is properly includes
-env.Append(CPPPATH=['.', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path + 'include/core/', cpp_bindings_path + 'include/gen/'])
-env.Append(LIBPATH=[cpp_bindings_path + 'bin/'])
-env.Append(LIBS=[cpp_library])
-
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=['src/'])
-sources = Glob('src/*.cpp')
+env.Append(CPPPATH=["src/"])
+sources = Glob("src/*.cpp")
 
-print("debugging output name",env["target_name"],cpp_library)
-library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
+if env["platform"] == "macos":
+    library = env.SharedLibrary(
+        "demo/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
+            env["platform"], env["target"], env["platform"], env["target"]
+        ),
+        source=sources,
+    )
+else:
+    library = env.SharedLibrary(
+        "demo/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        source=sources,
+    )
 
 Default(library)
-
-# Generates help for the -h scons option.
-Help(opts.GenerateHelpText(env))
