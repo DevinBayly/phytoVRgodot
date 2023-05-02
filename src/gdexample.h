@@ -1,40 +1,43 @@
 #ifndef GDEXAMPLE_H
 #define GDEXAMPLE_H
-#include <string>
-#include <Godot.hpp>
-#include <File.hpp>
+
+#include <godot_cpp/classes/sprite2d.hpp>
+#include <godot_cpp/godot.hpp>
+// #include <File.hpp>
 #include <vector>
 #include <chrono>
 #include <iostream>
-#include <ResourceLoader.hpp>
-#include <Material.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
+#include <godot_cpp/classes/material.hpp>
 #include <fstream>
-#include <String.hpp>
-#include <OS.hpp>
-#include <Spatial.hpp>
-#include <ArrayMesh.hpp>
-#include <MeshInstance.hpp>
-
+// #include <String.hpp>
+#include <godot_cpp/classes/os.hpp>
+#include <godot_cpp/classes/node3d.hpp>
+#include <godot_cpp/classes/array_mesh.hpp>
+#include <godot_cpp/classes/mesh_instance3d.hpp>
+#include <godot_cpp/variant/packed_vector3_array.hpp>
+#include <godot_cpp/variant/packed_color_array.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
 namespace godot
 {
 
-    class GDExample : public Spatial
+    class GDExample : public Node3D
     {
-        GODOT_CLASS(GDExample, Spatial)
+        GDCLASS(GDExample, Node3D)
 
     private:
+        float time_passed;
         float speed;
         float amplitude;
-        float time_passed;
         float time_emit;
         int point_skip;
         String file_pth;
-        MeshInstance * mesh_instance;
-        ArrayMesh * array_mesh;
+        MeshInstance3D *mesh_instance;
+        ArrayMesh *array_mesh;
+    protected:
+        static void _bind_methods();
 
     public:
-        static void _register_methods();
-
         GDExample();
         ~GDExample();
 
@@ -51,6 +54,8 @@ namespace godot
         String get_file_path();
         int get_point_skip();
     };
+
 }
 
 #endif
+
