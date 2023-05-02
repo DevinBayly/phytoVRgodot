@@ -7,13 +7,13 @@ using namespace std;
 static bool has_child = false;
 void GDExample::_bind_methods()
 {
-	// ClassDB::bind_method(D_METHOD("get_file_path"), &GDExample::get_file_path);
-	// ClassDB::bind_method(D_METHOD("set_file_path", "pth"), &GDExample::set_file_path);
-	// ClassDB::bind_method(D_METHOD("get_point_skip"), &GDExample::get_point_skip);
-	// ClassDB::bind_method(D_METHOD("set_point_skip", "num"), &GDExample::set_point_skip);
-	// ClassDB::add_property("GDExample", PropertyInfo(Variant::STRING, "file_pth"), "set_file_path", "get_file_path");
-	// ClassDB::add_property("GDExample", PropertyInfo(Variant::INT, "point_skip"), "set_point_skip", "get_point_skip");
-	// ClassDB::bind_method(D_METHOD("make_cloud"), &GDExample::make_cloud);
+	 ClassDB::bind_method(D_METHOD("get_file_path"), &GDExample::get_file_path);
+	 ClassDB::bind_method(D_METHOD("set_file_path", "pth"), &GDExample::set_file_path);
+	 ClassDB::bind_method(D_METHOD("get_point_skip"), &GDExample::get_point_skip);
+	 ClassDB::bind_method(D_METHOD("set_point_skip", "num"), &GDExample::set_point_skip);
+	 ClassDB::add_property("GDExample", PropertyInfo(Variant::STRING, "file_pth"), "set_file_path", "get_file_path");
+	 ClassDB::add_property("GDExample", PropertyInfo(Variant::INT, "point_skip"), "set_point_skip", "get_point_skip");
+	 ClassDB::bind_method(D_METHOD("make_cloud"), &GDExample::make_cloud);
 }
 
 GDExample::GDExample()
@@ -22,11 +22,11 @@ GDExample::GDExample()
 
 	UtilityFunctions::print("_ready");
 	time_passed = 0.0;
-	_init();
 	mesh_instance = memnew(MeshInstance3D);
-	// array_mesh = memnew(ArrayMesh);
+	array_mesh = memnew(ArrayMesh);
 	add_child(mesh_instance);
 	mesh_instance->set_name("instance");
+	_init();
 }
 GDExample::~GDExample()
 {
@@ -50,7 +50,7 @@ void GDExample::_init() {
 	UtilityFunctions::print("starting up");
 	point_skip = 1;
 	file_pth ="./final_centered.ply";
-	make_cloud();
+	// make_cloud();
 
 }
 
@@ -163,8 +163,7 @@ void GDExample::make_cloud()
 
 	arrays.resize(ArrayMesh::ARRAY_MAX);
 	arrays[ArrayMesh::ARRAY_VERTEX] = vertices; // required
-	// arrays[ArrayMesh::ARRAY_COLOR] = colors;
-	array_mesh = memnew(ArrayMesh);
+	arrays[ArrayMesh::ARRAY_COLOR] = colors;
 	array_mesh->add_surface_from_arrays(Mesh::PRIMITIVE_POINTS, arrays);
 	array_mesh->surface_set_material(0, mat);
 	// pMeshInstance = new MeshInstance; // NO! BAD! Will crash the game!
@@ -208,28 +207,28 @@ void GDExample::_process(float delta) {
 // 	return speed;
 // }
 
-// void GDExample::set_file_path(String pth)
-// {
-// 	cout << "setting file path" << endl;
-// 	file_pth = pth;
-// }
+ void GDExample::set_file_path(String pth)
+ {
+ 	cout << "setting file path" << endl;
+ 	file_pth = pth;
+ }
 
-// String GDExample::get_file_path()
-// {
-// 	return file_pth;
-// }
+ String GDExample::get_file_path()
+ {
+ 	return file_pth;
+ }
 
-// int GDExample::get_point_skip()
-// {
-// 	return point_skip;
-// }
+ int GDExample::get_point_skip()
+ {
+ 	return point_skip;
+ }
 
-// void GDExample::set_point_skip(int num)
-// {
-// 	point_skip = num;
-// 	UtilityFunctions::print("changing the number of points in the point cloud");
-// 	UtilityFunctions::print(String::num_scientific(point_skip));
-// 	// now we reset the array mesh surface and prep it for getting file contents added with make cloud
-// 	array_mesh->clear_surfaces();
-// 	make_cloud();
-// }
+ void GDExample::set_point_skip(int num)
+ {
+ 	point_skip = num;
+ 	UtilityFunctions::print("changing the number of points in the point cloud");
+ 	UtilityFunctions::print(String::num_scientific(point_skip));
+ 	// now we reset the array mesh surface and prep it for getting file contents added with make cloud
+ 	array_mesh->clear_surfaces();
+ 	make_cloud();
+ }
