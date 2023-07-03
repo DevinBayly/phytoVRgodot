@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0n8gdth0ygrs"]
+
+[ext_resource type="Script" path="res://test/test_loading_multiple.gd" id="1_ofemi"]
+[ext_resource type="PackedScene" uid="uid://c8xy454ua0fxe" path="res://player/player_pc.tscn" id="2_iu6vv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eay0y"]
+
+[node name="test_loading_multiple" type="Node3D"]
+script = ExtResource("1_ofemi")
+
+[node name="PlayerPc" parent="." instance=ExtResource("2_iu6vv")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.66466)
+mesh = SubResource("CapsuleMesh_eay0y")

@@ -13,3 +13,6 @@ skeleton = NodePath("../PlayerPc")
 
 [node name="PlayerPc" parent="." instance=ExtResource("1_60d3f")]
 transform = Transform3D(0.817818, 0, -0.575476, 0, 1, 0, 0.575476, 0, 0.817818, 0, 0, 0)
+sensitivity = 0.1
+use_gravity = false
+SPEED = 5.0

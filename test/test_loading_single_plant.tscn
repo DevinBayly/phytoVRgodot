@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccqc8a2kt78oc"]
+
+[ext_resource type="PackedScene" uid="uid://c8xy454ua0fxe" path="res://player/player_pc.tscn" id="1_pcdy0"]
+[ext_resource type="PackedScene" uid="uid://b0adb0or2m585" path="res://test/test_extension.tscn" id="2_q0t0w"]
+
+[node name="test_loading_single_plant" type="Node3D"]
+
+[node name="PlayerPc" parent="." instance=ExtResource("1_pcdy0")]
+SPEED = 1.0
+
+[node name="test_extension" parent="." instance=ExtResource("2_q0t0w")]

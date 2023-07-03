@@ -1,13 +1,11 @@
 extends Node3D
 
-
 var plant_loader = preload("res://plant_loader/plant_loader.gd").new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var points = plant_loader.load_single("assets/plant_plys/GRxI_1004_88_timeseries/2020-03-01_final_centered.ply")
-	print(points)
-	add_child.call_deferred(points)
+	add_child.call_deferred(plant_loader)
+	plant_loader.load_from_json("res://assets/loading_configuration.json")
 	pass # Replace with function body.
 
 
