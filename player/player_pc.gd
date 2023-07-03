@@ -1,11 +1,32 @@
 extends CharacterBody3D
 
+
+@export var sensitivity =.1
 @export var use_gravity: bool = false
-const SPEED = 5.0
+@export var SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-@onready var cam = $head/Camera3D
+@onready var cam = $rotation_helper/Camera3D
+@onready var helper = $rotation_helper
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+
+var prev_press = false
+func _input(event):
+	if event is InputEventMouseMotion and prev_press:
+
+		## need to rotate self around x to change height, but do the camera around y separately
+		helper.rotate_x(-1*deg_to_rad(event.relative.y*sensitivity))
+		## clamp in a moment so that we don't go upsidown
+		
+		rotate_y(-1*deg_to_rad(event.relative.x*sensitivity))
+		var cam_rot= helper.rotation_degrees
+		cam_rot.x = clamp(cam_rot.x,-70,70)
+		helper.rotation_degrees = cam_rot
+		#rotation_degrees.x  = clamp(rotation_degrees.x,-70,70)
+
+	if event is InputEventMouseButton:
+		prev_press =! prev_press 
 
 
 func _physics_process(delta):
