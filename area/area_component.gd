@@ -6,6 +6,8 @@ var selected=false
 @onready var inner_node = $inner_node
 @onready var wireframe = $inner_node/wireframe
 
+signal activated(name)
+signal deactivated(name)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +25,11 @@ func general_selection_actions():
 	selected=!selected
 	print("selection changing")
 	wireframe.visible = selected
+	if selected:
+		activated.emit(name)
+	else:
+		deactivated.emit(name)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
