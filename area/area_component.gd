@@ -3,7 +3,8 @@ extends Node3D
 # creation of 
 
 var selected=false
-
+@onready var inner_node = $inner_node
+@onready var wireframe = $inner_node/wireframe
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +21,8 @@ func selected_by_mouse():
 func general_selection_actions():
 	# this is the kind of thing that needs to happen no matter how we got originally selected
 	selected=!selected
-
+	print("selection changing")
+	wireframe.visible = selected
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
