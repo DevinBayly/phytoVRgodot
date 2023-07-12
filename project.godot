@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="phyto_conversion"
-run/main_scene="res://test/test_player_move.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
+run/main_scene="res://test/test_loading_single_plant.tscn"
+config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"

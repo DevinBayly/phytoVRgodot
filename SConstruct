@@ -35,7 +35,7 @@ conf = Path("example.gdextension").write_text(f"""
 [configuration]
 
 entry_symbol = "example_library_init"
-
+compatibility_minimum = 4.1
 [libraries]
 
 windows.debug.x86_32 = "res://binary/bin/libgdexample.windows.template_debug.x86_32.dll"

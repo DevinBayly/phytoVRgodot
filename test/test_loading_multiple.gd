@@ -1,5 +1,5 @@
 extends Node3D
-
+## changing to check on external changes picked up?
 var plant_loader = preload("res://plant_loader/plant_loader.gd").new()
 
 # Called when the node enters the scene tree for the first time.
