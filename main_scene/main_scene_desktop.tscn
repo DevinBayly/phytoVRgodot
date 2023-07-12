@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c60tjc8xdu13w"]
+
+[ext_resource type="PackedScene" uid="uid://cp4bv5kn21ys0" path="res://main_scene/main_scene.tscn" id="1_21rur"]
+[ext_resource type="PackedScene" uid="uid://c8xy454ua0fxe" path="res://player/player_pc.tscn" id="2_frhkc"]
+
+[node name="main_scene_desktop" instance=ExtResource("1_21rur")]
+
+[node name="PlayerPc" parent="." index="2" instance=ExtResource("2_frhkc")]

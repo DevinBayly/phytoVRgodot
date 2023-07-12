@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bh4avnvoevrys"]
+[gd_scene load_steps=6 format=3 uid="uid://bh4avnvoevrys"]
 
 [ext_resource type="Script" path="res://area/Area3D.gd" id="1_tihsl"]
+[ext_resource type="Script" path="res://area/area_component.gd" id="1_y7vv6"]
 [ext_resource type="ArrayMesh" uid="uid://dbkmn15lfy0f4" path="res://area/wirebox.tres" id="2_sa7kj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vmdjf"]
@@ -9,14 +10,21 @@
 albedo_color = Color(0.517647, 0.843137, 0.152941, 1)
 
 [node name="Area_component" type="Node3D"]
+script = ExtResource("1_y7vv6")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="scalar_node" type="Node3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="scalar_node"]
 script = ExtResource("1_tihsl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="scalar_node/Area3D"]
 shape = SubResource("BoxShape3D_vmdjf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="scalar_node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -0.5)
 mesh = ExtResource("2_sa7kj")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_lmtk5")
+
+[connection signal="input_event" from="scalar_node/Area3D" to="." method="_on_area_3d_input_event"]

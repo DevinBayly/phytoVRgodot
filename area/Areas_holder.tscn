@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch4ir1u6fnyft"]
+
+[ext_resource type="Script" path="res://area/Areas_holder.gd" id="1_qy47k"]
+
+[node name="Areas_holder" type="Node3D"]
+script = ExtResource("1_qy47k")

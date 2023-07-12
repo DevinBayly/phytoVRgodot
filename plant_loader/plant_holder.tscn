@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0rhq6ni7ecrj"]
+
+[ext_resource type="Script" path="res://plant_loader/plant_loader.gd" id="1_jaadw"]
+
+[node name="plant_holder" type="Node3D"]
+script = ExtResource("1_jaadw")
