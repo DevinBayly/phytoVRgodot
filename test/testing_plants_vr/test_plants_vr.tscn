@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://feag3b4biiam"]
+
+[ext_resource type="Script" path="res://test/testing_plants_vr/main_scene_testing.gd" id="1_2t0bn"]
+[ext_resource type="PackedScene" uid="uid://b0rhq6ni7ecrj" path="res://plant_loader/plant_holder.tscn" id="2_38ygp"]
+[ext_resource type="PackedScene" uid="uid://ch4ir1u6fnyft" path="res://area/Areas_holder.tscn" id="3_yklkh"]
+[ext_resource type="PackedScene" uid="uid://byfnl2mu07saj" path="res://player/player_vr.tscn" id="4_hqtfh"]
+
+[node name="test_plants_vr" type="Node3D"]
+script = ExtResource("1_2t0bn")
+
+[node name="plant_holder" parent="." instance=ExtResource("2_38ygp")]
+
+[node name="Areas_holder" parent="." instance=ExtResource("3_yklkh")]
+
+[node name="player_vr" parent="." instance=ExtResource("4_hqtfh")]

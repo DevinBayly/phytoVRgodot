@@ -14,3 +14,8 @@ config/name="phyto_conversion"
 run/main_scene="res://main_scene/main_scene_desktop.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[xr]
+
+openxr/enabled=true
+shaders/enabled=true

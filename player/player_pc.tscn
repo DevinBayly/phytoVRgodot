@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://player/player_pc.gd" id="1_k6aeo"]
 
 [node name="PlayerPc" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11384, 0)
 script = ExtResource("1_k6aeo")
 
 [node name="rotation_helper" type="Node3D" parent="."]

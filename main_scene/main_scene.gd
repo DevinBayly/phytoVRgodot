@@ -20,12 +20,14 @@ func load_from_json(jpth):
 		var plant_name = e.pth.split("/")[1]
 		print(plant_name)
 		var full_asset_path = relative_parent+"/"+e.pth
-		## here's where we could be loading all the things that get created per plant
-		plant_holder.load_move(full_asset_path,plant_name,e.x,e.y)
-		area_holder.create_move(plant_name,e.x,e.y)
-		lim -=1
-		if lim <0:
-			break
+		# double check that the file exists
+		if FileAccess.file_exists(full_asset_path):
+			## here's where we could be loading all the things that get created per plant
+			plant_holder.load_move(full_asset_path,plant_name,e.x,e.y)
+			area_holder.create_move(plant_name,e.x,e.y)
+			lim -=1
+			if lim <0:
+				break
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_from_json("res://assets/loading_configuration.json")

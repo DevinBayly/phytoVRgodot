@@ -15,6 +15,7 @@ func load_single(pth):
 	return ply_points
 	
 func load_move(pth,name,x,z):
+	
 	var points = load_single(pth)
 	points.translate(Vector3(x,0,z))
 	points.name = name+"_points" ## to distinguish this from the area components that will have the same name base

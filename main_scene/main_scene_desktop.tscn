@@ -6,3 +6,4 @@
 [node name="main_scene_desktop" instance=ExtResource("1_21rur")]
 
 [node name="PlayerPc" parent="." index="2" instance=ExtResource("2_frhkc")]
+transform = Transform3D(-0.482442, 0, -0.875928, 0, 1, 0, 0.875928, 0, -0.482442, 0, 2.10498, 0)
