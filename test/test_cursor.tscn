@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://drcr0pvcqders"]
+
+[ext_resource type="Script" path="res://test/test_cursor.gd" id="1_dtlwj"]
+[ext_resource type="PackedScene" uid="uid://ukbxud0ull0o" path="res://assets/interaction_glyphs/intersection glyph.tscn" id="1_g2qfq"]
+[ext_resource type="PackedScene" uid="uid://byfnl2mu07saj" path="res://player/player_vr.tscn" id="2_kaa35"]
+[ext_resource type="Script" path="res://test/Area3D.gd" id="3_nbg2t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rl0oe"]
+size = Vector3(10, 0.5, 10)
+
+[node name="test_cursor" type="Node3D"]
+script = ExtResource("1_dtlwj")
+
+[node name="intersection glyph" parent="." instance=ExtResource("1_g2qfq")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="player_vr" parent="." instance=ExtResource("2_kaa35")]
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("3_nbg2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_rl0oe")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

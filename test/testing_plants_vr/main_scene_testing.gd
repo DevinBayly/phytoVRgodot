@@ -15,13 +15,14 @@ func load_from_json(jpth):
 		#print(e.path)
 		## this is all to maek it possible to get the parent name of the folder that we are loading the plants relative to
 		var relative_parent = "".join(jpth.split("/").slice(1,-1)).strip_edges()
-		print(relative_parent)
-		print(e.pth)
+#		print(relative_parent)
+#		print(e.pth)
 		var plant_name = e.pth.split("/")[1]
-		print(plant_name)
+#		print(plant_name)
 		var full_asset_path = relative_parent+"/"+e.pth
 		# double check that the file exists
 		if FileAccess.file_exists(full_asset_path):
+			print("loading")
 			## here's where we could be loading all the things that get created per plant
 			plant_holder.load_move(full_asset_path,plant_name,e.x,e.y)
 			area_holder.create_move(plant_name,e.x,e.y)

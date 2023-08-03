@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://byfnl2mu07saj"]
+[gd_scene load_steps=4 format=3 uid="uid://byfnl2mu07saj"]
 
 [ext_resource type="Script" path="res://test/vr_tests/test_vr.gd" id="1_qxlk5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnesj"]
+shading_mode = 0
+albedo_color = Color(0.403922, 1, 0.0588235, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sqrpi"]
+material = SubResource("StandardMaterial3D_lnesj")
 
 [node name="player_vr" type="Node3D"]
 script = ExtResource("1_qxlk5")
@@ -8,3 +15,18 @@ script = ExtResource("1_qxlk5")
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="RH" type="XRController3D" parent="."]
+tracker = &"right_hand"
+
+[node name="RayCast3D" type="RayCast3D" parent="RH"]
+target_position = Vector3(0, 0, -5)
+collide_with_areas = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RH"]
+transform = Transform3D(0.045504, 0, 0, 0, -0.0743084, -0.0454607, 0, 1.70263, -0.00198406, 0.00661683, 0.0900474, -1.70336)
+visible = false
+mesh = SubResource("CylinderMesh_sqrpi")
+
+[node name="LH" type="XRController3D" parent="."]
+tracker = &"left_hand"

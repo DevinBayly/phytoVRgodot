@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ukbxud0ull0o"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_2lcyh"]
+
+[node name="intersection glyph" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_2lcyh")

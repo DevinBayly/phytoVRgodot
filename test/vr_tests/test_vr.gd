@@ -14,3 +14,9 @@ func _ready():
 		get_viewport().use_xr = true
 	else:
 		print("OpenXR not initialised, please check if your headset is connected")
+
+func get_collision():
+	return $RH/RayCast3D.get_collision_point()
+
+func collided():
+	return $RH/RayCast3D.is_colliding()
